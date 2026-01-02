@@ -1,1 +1,3460 @@
-ddddd
+QB-AI CYBER SECURITY: COMPREHENSIVE TECHNICAL IMPLEMENTATION
+
+PROJECT STRUCTURE
+
+```
+qb-ai-cyber/
+├── LICENSE
+├── README.md
+├── pyproject.toml
+├── requirements.txt
+├── docker-compose.yml
+├── setup.py
+├── config/
+│   ├── system.yaml
+│   ├── security.yaml
+│   ├── quantum.yaml
+│   └── deployment.yaml
+├── src/
+│   └── qb_ai_cyber/
+│       ├── __init__.py
+│       ├── core/
+│       │   ├── __init__.py
+│       │   ├── immune_system/
+│       │   │   ├── __init__.py
+│       │   │   ├── innate_immunity.py
+│       │   │   ├── adaptive_immunity.py
+│       │   │   ├── memory_cells.py
+│       │   │   └── response_orchestrator.py
+│       │   ├── quantum_security/
+│       │   │   ├── __init__.py
+│       │   │   ├── qkd_engine.py
+│       │   │   ├── quantum_anomaly.py
+│       │   │   ├── post_quantum_crypto.py
+│       │   │   └── quantum_random.py
+│       │   ├── healing_system/
+│       │   │   ├── __init__.py
+│       │   │   ├── regeneration.py
+│       │   │   ├── isolation.py
+│       │   │   └── recovery.py
+│       │   ├── neural_engine/
+│       │   │   ├── __init__.py
+│       │   │   ├── snn_engine.py
+│       │   │   ├── qnn_engine.py
+│       │   │   └── transformer_models.py
+│       │   ├── orchestration/
+│       │   │   ├── __init__.py
+│       │   │   ├── security_brain.py
+│       │   │   ├── threat_intelligence.py
+│       │   │   └── policy_engine.py
+│       │   └── sensors/
+│       │       ├── __init__.py
+│       │       ├── network_sensor.py
+│       │       ├── endpoint_sensor.py
+│       │       ├── application_sensor.py
+│       │       └── quantum_sensor.py
+│       ├── api/
+│       │   ├── __init__.py
+│       │   ├── rest_api.py
+│       │   ├── streaming_api.py
+│       │   └── grpc_api.py
+│       ├── integrations/
+│       │   ├── __init__.py
+│       │   ├── siem/
+│       │   ├── edr/
+│       │   ├── cloud/
+│       │   └── compliance/
+│       └── deployment/
+│           ├── __init__.py
+│           ├── kubernetes/
+│           ├── docker/
+│           └── terraform/
+├── tests/
+│   ├── __init__.py
+│   ├── unit/
+│   ├── integration/
+│   └── system/
+├── examples/
+│   ├── enterprise/
+│   ├── cloud/
+│   └── edge/
+└── docs/
+    ├── api/
+    ├── deployment/
+    └── architecture/
+```
+
+CORE IMPLEMENTATION FILES
+
+1. Project Configuration Files
+
+pyproject.toml
+
+```toml
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "qb-ai-cyber"
+version = "1.0.0-alpha"
+description = "Quantum-Biological AI Cyber Security System"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "Apache-2.0"}
+authors = [
+    {name = "QB-AI Cyber Security Team", email = "security@qb-ai-cyber.org"},
+]
+keywords = ["cybersecurity", "quantum", "ai", "immune-system", "biomimetic"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: System Administrators",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Security",
+    "Topic :: System :: Networking :: Monitoring",
+]
+
+dependencies = [
+    "numpy>=1.21.0",
+    "scipy>=1.7.0",
+    "pandas>=1.3.0",
+    "scikit-learn>=1.0.0",
+    "tensorflow>=2.10.0",
+    "torch>=1.12.0",
+    "qiskit>=0.39.0",
+    "cirq>=1.1.0",
+    "pennylane>=0.28.0",
+    "spikingjelly>=0.0.0.14",
+    "fastapi>=0.95.0",
+    "uvicorn>=0.21.0",
+    "websockets>=11.0.0",
+    "pydantic>=1.10.0",
+    "redis>=4.5.0",
+    "kafka-python>=2.0.0",
+    "psutil>=5.9.0",
+    "pyyaml>=6.0",
+    "cryptography>=39.0.0",
+    "requests>=2.28.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.20.0",
+    "pytest-cov>=4.0.0",
+    "black>=22.0.0",
+    "flake8>=5.0.0",
+    "mypy>=1.0.0",
+    "sphinx>=6.0.0",
+]
+quantum = [
+    "dwave-ocean-sdk>=6.0.0",
+    "azure-quantum>=0.24.0",
+    "qsharp>=0.24.0",
+]
+cloud = [
+    "boto3>=1.26.0",
+    "azure-identity>=1.12.0",
+    "google-cloud-securitycenter>=1.10.0",
+]
+production = [
+    "gunicorn>=20.1.0",
+    "prometheus-client>=0.16.0",
+    "grafana-client>=3.1.0",
+]
+
+[project.urls]
+Homepage = "https://qb-ai-cyber.org"
+Documentation = "https://docs.qb-ai-cyber.org"
+Repository = "https://github.com/qb-ai-cyber/qb-ai-cyber.git"
+Issues = "https://github.com/qb-ai-cyber/qb-ai-cyber/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["qb_ai_cyber*"]
+
+[tool.black]
+line-length = 88
+target-version = ['py39']
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra -q --cov=qb_ai_cyber --cov-report=term-missing"
+testpaths = ["tests"]
+```
+
+requirements.txt
+
+```txt
+# Core Dependencies
+numpy==1.24.0
+scipy==1.10.0
+pandas==1.5.0
+matplotlib==3.7.0
+
+# Machine Learning
+tensorflow==2.12.0
+torch==2.0.0
+scikit-learn==1.2.0
+xgboost==1.7.0
+catboost==1.1.0
+
+# Quantum Computing
+qiskit==0.43.0
+qiskit-aer==0.12.0
+cirq==1.1.0
+pennylane==0.30.0
+
+# Neuromorphic Computing
+spikingjelly==0.0.0.14
+brian2==2.5.1.1
+nengo==3.2.0
+
+# Web & API
+fastapi==0.95.0
+uvicorn==0.21.0
+websockets==11.0.0
+starlette==0.26.0
+
+# Data & Serialization
+pydantic==1.10.0
+pyyaml==6.0
+msgpack==1.0.0
+orjson==3.8.0
+
+# Networking & Security
+cryptography==39.0.0
+paramiko==3.1.0
+scapy==2.5.0
+netifaces==0.11.0
+
+# System Monitoring
+psutil==5.9.0
+prometheus-client==0.16.0
+grafana-client==3.1.0
+
+# Database & Caching
+redis==4.5.0
+sqlalchemy==2.0.0
+aioredis==2.0.0
+
+# Messaging
+kafka-python==2.0.0
+pika==1.3.0
+nats-py==2.2.0
+
+# Testing
+pytest==7.3.0
+pytest-asyncio==0.21.0
+pytest-cov==4.0.0
+
+# Development
+black==23.1.0
+flake8==6.0.0
+mypy==1.0.0
+pre-commit==3.0.0
+```
+
+2. Core Immune System Implementation
+
+src/qb_ai_cyber/core/immune_system/innate_immunity.py
+
+```python
+"""
+Pattern Recognition Receptors (PRRs) - Innate Immunity System
+Detects known threats using signatures, patterns, and behavioral analysis.
+"""
+
+import re
+import hashlib
+import json
+from typing import Dict, List, Optional, Tuple, Any
+from dataclasses import dataclass, field
+from enum import Enum
+import numpy as np
+from datetime import datetime, timedelta
+import asyncio
+from concurrent.futures import ThreadPoolExecutor
+import pickle
+from pathlib import Path
+
+@dataclass
+class ThreatSignature:
+    """Represents a known threat signature."""
+    id: str
+    name: str
+    signature_type: str  # regex, hash, behavioral, quantum_pattern
+    pattern: Any
+    metadata: Dict[str, Any]
+    created_at: datetime
+    updated_at: datetime
+    confidence: float
+    severity: str  # critical, high, medium, low
+    
+class SignatureType(Enum):
+    REGEX = "regex"
+    HASH = "hash"
+    BEHAVIORAL = "behavioral"
+    QUANTUM_PATTERN = "quantum_pattern"
+    NETWORK_FLOW = "network_flow"
+    FILE_SIGNATURE = "file_signature"
+
+class PatternRecognitionReceptor:
+    """
+    Innate Immunity - Pattern Recognition Receptors
+    First line of defense against known threats.
+    """
+    
+    def __init__(self, config: Dict[str, Any]):
+        self.config = config
+        self.signatures: Dict[str, ThreatSignature] = {}
+        self.signature_cache = {}
+        self.compiled_patterns = {}
+        self.performance_stats = {
+            'scans_completed': 0,
+            'threats_detected': 0,
+            'false_positives': 0,
+            'average_scan_time': 0.0
+        }
+        
+        # Thread pool for parallel scanning
+        self.thread_pool = ThreadPoolExecutor(
+            max_workers=config.get('max_workers', 8)
+        )
+        
+        # Load signatures
+        self._load_signatures()
+        
+    def _load_signatures(self):
+        """Load threat signatures from database or files."""
+        signature_paths = [
+            Path("data/signatures/known_malware.json"),
+            Path("data/signatures/network_attacks.json"),
+            Path("data/signatures/behavioral_patterns.json")
+        ]
+        
+        for path in signature_paths:
+            if path.exists():
+                with open(path, 'r') as f:
+                    signatures_data = json.load(f)
+                    for sig_data in signatures_data:
+                        signature = ThreatSignature(
+                            id=sig_data['id'],
+                            name=sig_data['name'],
+                            signature_type=sig_data['type'],
+                            pattern=sig_data['pattern'],
+                            metadata=sig_data.get('metadata', {}),
+                            created_at=datetime.fromisoformat(sig_data['created_at']),
+                            updated_at=datetime.fromisoformat(sig_data['updated_at']),
+                            confidence=sig_data['confidence'],
+                            severity=sig_data['severity']
+                        )
+                        self.signatures[signature.id] = signature
+                        
+                        # Pre-compile regex patterns
+                        if signature.signature_type == SignatureType.REGEX.value:
+                            try:
+                                self.compiled_patterns[signature.id] = re.compile(
+                                    signature.pattern, 
+                                    re.IGNORECASE | re.DOTALL
+                                )
+                            except re.error:
+                                print(f"Invalid regex pattern for signature {signature.id}")
+        
+        print(f"Loaded {len(self.signatures)} threat signatures")
+    
+    async def scan_network_packet(self, packet_data: bytes) -> List[Dict[str, Any]]:
+        """
+        Scan network packet for known threats.
+        
+        Args:
+            packet_data: Raw packet bytes
+            
+        Returns:
+            List of detected threats with metadata
+        """
+        threats = []
+        
+        # Convert packet to string for pattern matching
+        packet_str = packet_data.decode('utf-8', errors='ignore')
+        
+        # Check against regex signatures
+        for sig_id, signature in self.signatures.items():
+            if signature.signature_type == SignatureType.REGEX.value:
+                compiled = self.compiled_patterns.get(sig_id)
+                if compiled and compiled.search(packet_str):
+                    threats.append({
+                        'signature_id': sig_id,
+                        'signature_name': signature.name,
+                        'confidence': signature.confidence,
+                        'severity': signature.severity,
+                        'matched_pattern': compiled.pattern[:100] + '...',
+                        'detection_type': 'regex_match'
+                    })
+            
+            elif signature.signature_type == SignatureType.HASH.value:
+                # Calculate hash of packet
+                packet_hash = hashlib.sha256(packet_data).hexdigest()
+                if packet_hash == signature.pattern:
+                    threats.append({
+                        'signature_id': sig_id,
+                        'signature_name': signature.name,
+                        'confidence': signature.confidence,
+                        'severity': signature.severity,
+                        'matched_pattern': packet_hash,
+                        'detection_type': 'hash_match'
+                    })
+        
+        # Update statistics
+        self.performance_stats['scans_completed'] += 1
+        self.performance_stats['threats_detected'] += len(threats)
+        
+        return threats
+    
+    async def scan_file(self, file_path: str, file_data: Optional[bytes] = None) -> List[Dict[str, Any]]:
+        """
+        Scan file for known malware signatures.
+        
+        Args:
+            file_path: Path to file
+            file_data: Optional file bytes (if already loaded)
+            
+        Returns:
+            List of detected threats
+        """
+        threats = []
+        
+        try:
+            # Read file if data not provided
+            if file_data is None:
+                with open(file_path, 'rb') as f:
+                    file_data = f.read()
+            
+            # Check file signatures
+            file_hash = hashlib.sha256(file_data).hexdigest()
+            
+            for sig_id, signature in self.signatures.items():
+                if signature.signature_type == SignatureType.HASH.value:
+                    if file_hash == signature.pattern:
+                        threats.append({
+                            'signature_id': sig_id,
+                            'signature_name': signature.name,
+                            'file_path': file_path,
+                            'confidence': signature.confidence,
+                            'severity': signature.severity,
+                            'detection_type': 'file_hash_match'
+                        })
+                
+                elif signature.signature_type == SignatureType.REGEX.value:
+                    # Search for patterns in file content
+                    file_str = file_data.decode('utf-8', errors='ignore')
+                    compiled = self.compiled_patterns.get(sig_id)
+                    if compiled and compiled.search(file_str):
+                        threats.append({
+                            'signature_id': sig_id,
+                            'signature_name': signature.name,
+                            'file_path': file_path,
+                            'confidence': signature.confidence,
+                            'severity': signature.severity,
+                            'detection_type': 'file_content_match'
+                        })
+            
+            # Check for PE file signatures (Windows executables)
+            if len(file_data) > 64 and file_data[:2] == b'MZ':
+                # This is a PE file, check for specific malware patterns
+                pe_threats = await self._scan_pe_file(file_data)
+                threats.extend(pe_threats)
+        
+        except Exception as e:
+            print(f"Error scanning file {file_path}: {e}")
+        
+        return threats
+    
+    async def _scan_pe_file(self, file_data: bytes) -> List[Dict[str, Any]]:
+        """Scan PE file for specific malware patterns."""
+        threats = []
+        
+        # Check for common malware sections
+        suspicious_sections = ['.text', '.data', '.rsrc', '.reloc']
+        
+        # Look for packer signatures
+        packer_signatures = {
+            'UPX': b'UPX',
+            'ASPack': b'ASPack',
+            'PECompact': b'PEC2',
+            'FSG': b'FSG',
+            'Petite': b'Petite'
+        }
+        
+        for packer_name, signature in packer_signatures.items():
+            if signature in file_data:
+                threats.append({
+                    'signature_name': f'Packer_{packer_name}',
+                    'confidence': 0.7,
+                    'severity': 'medium',
+                    'detection_type': 'packer_detected',
+                    'metadata': {'packer': packer_name}
+                })
+        
+        return threats
+    
+    def add_signature(self, signature: ThreatSignature):
+        """Add a new threat signature."""
+        self.signatures[signature.id] = signature
+        
+        # Update compiled patterns if regex
+        if signature.signature_type == SignatureType.REGEX.value:
+            try:
+                self.compiled_patterns[signature.id] = re.compile(
+                    signature.pattern,
+                    re.IGNORECASE | re.DOTALL
+                )
+            except re.error as e:
+                print(f"Failed to compile regex pattern: {e}")
+    
+    def remove_signature(self, signature_id: str):
+        """Remove a threat signature."""
+        if signature_id in self.signatures:
+            del self.signatures[signature_id]
+        if signature_id in self.compiled_patterns:
+            del self.compiled_patterns[signature_id]
+    
+    async def behavioral_analysis(self, event_stream: List[Dict[str, Any]]) -> Dict[str, Any]:
+        """
+        Perform behavioral analysis on event stream.
+        
+        Args:
+            event_stream: List of security events
+            
+        Returns:
+            Behavioral analysis results
+        """
+        if not event_stream:
+            return {'threat_level': 0, 'anomalies': []}
+        
+        # Calculate behavioral metrics
+        events_per_second = len(event_stream) / 60  # Assuming 60-second window
+        unique_sources = len(set(e.get('source', '') for e in event_stream))
+        
+        # Look for behavioral patterns
+        anomalies = []
+        
+        # Burst detection
+        if events_per_second > 100:  # More than 100 events per second
+            anomalies.append({
+                'type': 'event_burst',
+                'confidence': min(1.0, events_per_second / 500),
+                'severity': 'high',
+                'description': f'High event rate: {events_per_second:.1f}/sec'
+            })
+        
+        # Multiple source detection
+        if unique_sources > 50:
+            anomalies.append({
+                'type': 'multiple_sources',
+                'confidence': min(1.0, unique_sources / 200),
+                'severity': 'medium',
+                'description': f'Multiple sources: {unique_sources}'
+            })
+        
+        # Sequence pattern detection
+        event_types = [e.get('event_type', '') for e in event_stream]
+        
+        # Check for attack patterns
+        attack_patterns = [
+            ['port_scan', 'vulnerability_probe', 'exploit_attempt'],
+            ['failed_login', 'failed_login', 'failed_login', 'successful_login'],
+            ['file_access', 'file_modification', 'file_deletion']
+        ]
+        
+        for pattern in attack_patterns:
+            if self._contains_sequence(event_types, pattern):
+                anomalies.append({
+                    'type': 'attack_sequence',
+                    'confidence': 0.85,
+                    'severity': 'high',
+                    'description': f'Detected attack sequence: {pattern}'
+                })
+        
+        # Calculate overall threat level
+        threat_level = 0.0
+        for anomaly in anomalies:
+            severity_weight = {
+                'low': 0.3,
+                'medium': 0.6,
+                'high': 0.9,
+                'critical': 1.0
+            }
+            threat_level += anomaly['confidence'] * severity_weight.get(anomaly['severity'], 0.5)
+        
+        threat_level = min(1.0, threat_level)
+        
+        return {
+            'threat_level': threat_level,
+            'anomalies': anomalies,
+            'metrics': {
+                'events_per_second': events_per_second,
+                'unique_sources': unique_sources,
+                'time_window_seconds': 60
+            }
+        }
+    
+    def _contains_sequence(self, sequence: List[str], pattern: List[str]) -> bool:
+        """Check if sequence contains pattern (allowing for gaps)."""
+        pattern_idx = 0
+        for item in sequence:
+            if item == pattern[pattern_idx]:
+                pattern_idx += 1
+                if pattern_idx == len(pattern):
+                    return True
+        return False
+    
+    def get_statistics(self) -> Dict[str, Any]:
+        """Get performance statistics."""
+        if self.performance_stats['scans_completed'] > 0:
+            self.performance_stats['average_scan_time'] = (
+                self.performance_stats['average_scan_time'] /
+                self.performance_stats['scans_completed']
+            )
+        
+        return {
+            **self.performance_stats,
+            'signatures_loaded': len(self.signatures),
+            'compiled_patterns': len(self.compiled_patterns)
+        }
+    
+    async def parallel_scan(self, scan_items: List[Any], scan_func) -> List[List[Dict[str, Any]]]:
+        """
+        Perform parallel scanning using thread pool.
+        
+        Args:
+            scan_items: List of items to scan
+            scan_func: Function to call for each item
+            
+        Returns:
+            List of scan results
+        """
+        loop = asyncio.get_event_loop()
+        tasks = []
+        
+        for item in scan_items:
+            task = loop.run_in_executor(self.thread_pool, scan_func, item)
+            tasks.append(task)
+        
+        results = await asyncio.gather(*tasks, return_exceptions=True)
+        
+        # Filter out exceptions
+        valid_results = []
+        for result in results:
+            if not isinstance(result, Exception):
+                valid_results.append(result)
+        
+        return valid_results
+    
+    def save_state(self, file_path: str):
+        """Save current state to file."""
+        state = {
+            'signatures': self.signatures,
+            'performance_stats': self.performance_stats
+        }
+        
+        with open(file_path, 'wb') as f:
+            pickle.dump(state, f)
+    
+    def load_state(self, file_path: str):
+        """Load state from file."""
+        try:
+            with open(file_path, 'rb') as f:
+                state = pickle.load(f)
+            
+            self.signatures = state['signatures']
+            self.performance_stats = state['performance_stats']
+            
+            # Recompile patterns
+            for sig_id, signature in self.signatures.items():
+                if signature.signature_type == SignatureType.REGEX.value:
+                    try:
+                        self.compiled_patterns[sig_id] = re.compile(
+                            signature.pattern,
+                            re.IGNORECASE | re.DOTALL
+                        )
+                    except re.error:
+                        pass
+                        
+        except FileNotFoundError:
+            print(f"State file not found: {file_path}")
+
+class InnateImmuneSystem:
+    """
+    Main innate immune system orchestrator.
+    """
+    
+    def __init__(self, config: Dict[str, Any]):
+        self.config = config
+        self.prrs = PatternRecognitionReceptor(config)
+        self.active_scans = {}
+        self.scan_history = []
+        
+    async def process_security_event(self, event: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Process a security event through innate immunity.
+        
+        Args:
+            event: Security event dictionary
+            
+        Returns:
+            Processing results with detected threats
+        """
+        start_time = datetime.now()
+        
+        # Extract event data
+        event_type = event.get('event_type', 'unknown')
+        event_data = event.get('data', {})
+        
+        detected_threats = []
+        
+        # Route to appropriate scanner
+        if event_type == 'network_packet':
+            packet_data = event_data.get('packet_data', b'')
+            threats = await self.prrs.scan_network_packet(packet_data)
+            detected_threats.extend(threats)
+            
+        elif event_type == 'file_scan':
+            file_path = event_data.get('file_path', '')
+            file_data = event_data.get('file_data')
+            threats = await self.prrs.scan_file(file_path, file_data)
+            detected_threats.extend(threats)
+            
+        elif event_type == 'behavioral_events':
+            event_stream = event_data.get('events', [])
+            behavioral_result = await self.prrs.behavioral_analysis(event_stream)
+            
+            if behavioral_result['threat_level'] > 0.7:
+                detected_threats.append({
+                    'detection_type': 'behavioral_anomaly',
+                    'confidence': behavioral_result['threat_level'],
+                    'severity': 'high',
+                    'anomalies': behavioral_result['anomalies']
+                })
+        
+        # Calculate processing time
+        processing_time = (datetime.now() - start_time).total_seconds()
+        
+        result = {
+            'event_id': event.get('event_id'),
+            'event_type': event_type,
+            'detected_threats': detected_threats,
+            'processing_time_seconds': processing_time,
+            'timestamp': datetime.now().isoformat()
+        }
+        
+        # Store in history
+        self.scan_history.append({
+            'timestamp': datetime.now().isoformat(),
+            'event_type': event_type,
+            'threats_detected': len(detected_threats),
+            'processing_time': processing_time
+        })
+        
+        # Trim history if too large
+        if len(self.scan_history) > 1000:
+            self.scan_history = self.scan_history[-1000:]
+        
+        return result
+    
+    async def batch_process(self, events: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        """Process multiple events in batch."""
+        results = []
+        
+        for event in events:
+            result = await self.process_security_event(event)
+            results.append(result)
+        
+        return results
+    
+    def get_system_status(self) -> Dict[str, Any]:
+        """Get system status and statistics."""
+        prr_stats = self.prrs.get_statistics()
+        
+        return {
+            'system': 'innate_immunity',
+            'status': 'active',
+            'prr_statistics': prr_stats,
+            'recent_scans': len(self.scan_history),
+            'active_scans': len(self.active_scans),
+            'uptime': 'TODO'  # Would track actual uptime
+        }
+```
+
+src/qb_ai_cyber/core/immune_system/adaptive_immunity.py
+
+```python
+"""
+Adaptive Immunity System - B-Cell and T-Cell analogs
+Learns from new threats and develops detection rules.
+"""
+
+import numpy as np
+import hashlib
+import json
+from typing import Dict, List, Optional, Tuple, Any
+from dataclasses import dataclass, field
+from datetime import datetime, timedelta
+import asyncio
+from enum import Enum
+import pickle
+from pathlib import Path
+from sklearn.cluster import DBSCAN
+from sklearn.preprocessing import StandardScaler
+import tensorflow as tf
+from collections import defaultdict
+
+@dataclass
+class ThreatExample:
+    """Training example for adaptive immunity."""
+    id: str
+    features: np.ndarray
+    label: str
+    metadata: Dict[str, Any]
+    timestamp: datetime
+    confidence: float
+
+@dataclass
+class DetectionRule:
+    """Detection rule generated by B-Cells."""
+    id: str
+    name: str
+    rule_type: str
+    conditions: List[Dict[str, Any]]
+    created_by: str  # B-Cell ID
+    created_at: datetime
+    confidence: float
+    effectiveness: float
+    usage_count: int = 0
+    success_count: int = 0
+
+class BCellType(Enum):
+    """Types of B-Cells in the immune system."""
+    NAIVE = "naive"          # Untrained, ready to learn
+    MEMORY = "memory"        # Stores learned patterns
+    PLASMA = "plasma"       # Generates detection rules
+    REGULATORY = "regulatory" # Suppresses false positives
+
+class TCellType(Enum):
+    """Types of T-Cells in the immune system."""
+    HELPER = "helper"        # Activates other immune cells
+    CYTOTOXIC = "cytotoxic"  # Eliminates threats
+    REGULATORY = "regulatory" # Modulates immune response
+    MEMORY = "memory"        # Remembers specific threats
+
+class BCell:
+    """
+    B-Cell analog for generating detection rules.
+    """
+    
+    def __init__(self, cell_id: str, cell_type: BCellType, config: Dict[str, Any]):
+        self.cell_id = cell_id
+        self.cell_type = cell_type
+        self.config = config
+        self.learning_rate = config.get('learning_rate', 0.01)
+        self.memory_capacity = config.get('memory_capacity', 1000)
+        self.experience_memory = []  # Stores threat examples
+        self.generated_rules = []    # Rules created by this cell
+        self.activation_level = 0.0  # Current activation level
+        self.last_activation = None
+        
+        # Neural network for pattern recognition
+        self.model = self._build_model() if cell_type == BCellType.PLASMA else None
+        
+    def _build_model(self):
+        """Build neural network for pattern recognition."""
+        model = tf.keras.Sequential([
+            tf.keras.layers.Dense(64, activation='relu', input_shape=(None, 100)),
+            tf.keras.layers.Dropout(0.2),
+            tf.keras.layers.Dense(32, activation='relu'),
+            tf.keras.layers.Dense(16, activation='relu'),
+            tf.keras.layers.Dense(1, activation='sigmoid')
+        ])
+        
+        model.compile(
+            optimizer=tf.keras.optimizers.Adam(learning_rate=self.learning_rate),
+            loss='binary_crossentropy',
+            metrics=['accuracy']
+        )
+        
+        return model
+    
+    def activate(self, threat_data: Dict[str, Any]) -> float:
+        """
+        Activate B-Cell based on threat similarity.
+        
+        Args:
+            threat_data: Threat information
+            
+        Returns:
+            Activation level (0-1)
+        """
+        # Calculate similarity to stored experiences
+        similarity_score = self._calculate_similarity(threat_data)
+        
+        # Adjust based on cell type
+        if self.cell_type == BCellType.MEMORY:
+            # Memory cells have higher baseline activation
+            self.activation_level = min(1.0, similarity_score * 1.5)
+        elif self.cell_type == BCellType.NAIVE:
+            # Naive cells have lower activation threshold
+            self.activation_level = similarity_score * 0.8
+        else:
+            self.activation_level = similarity_score
+        
+        self.last_activation = datetime.now()
+        return self.activation_level
+    
+    def _calculate_similarity(self, threat_data: Dict[str, Any]) -> float:
+        """Calculate similarity between threat and stored experiences."""
+        if not self.experience_memory:
+            return 0.0
+        
+        # Extract features from threat data
+        threat_features = self._extract_features(threat_data)
+        
+        # Calculate average similarity to stored experiences
+        similarities = []
+        for experience in self.experience_memory[:10]:  # Check recent experiences
+            exp_features = experience.features
+            if len(threat_features) == len(exp_features):
+                similarity = self._cosine_similarity(threat_features, exp_features)
+                similarities.append(similarity)
+        
+        return np.mean(similarities) if similarities else 0.0
+    
+    def _extract_features(self, threat_data: Dict[str, Any]) -> np.ndarray:
+        """Extract numerical features from threat data."""
+        features = []
+        
+        # Network threat features
+        if 'network' in threat_data:
+            net_data = threat_data['network']
+            features.extend([
+                net_data.get('packet_size', 0),
+                net_data.get('protocol', 0),
+                net_data.get('source_port', 0),
+                net_data.get('destination_port', 0),
+                net_data.get('packet_count', 0),
+            ])
+        
+        # File threat features
+        if 'file' in threat_data:
+            file_data = threat_data['file']
+            features.extend([
+                file_data.get('file_size', 0),
+                file_data.get('entropy', 0),
+                len(file_data.get('sections', [])),
+            ])
+        
+        # Behavioral threat features
+        if 'behavior' in threat_data:
+            behavior_data = threat_data['behavior']
+            features.extend([
+                behavior_data.get('event_count', 0),
+                behavior_data.get('unique_processes', 0),
+                behavior_data.get('failed_attempts', 0),
+            ])
+        
+        # Pad or truncate to fixed length
+        target_length = 100
+        if len(features) < target_length:
+            features.extend([0] * (target_length - len(features)))
+        else:
+            features = features[:target_length]
+        
+        return np.array(features, dtype=np.float32)
+    
+    def _cosine_similarity(self, vec1: np.ndarray, vec2: np.ndarray) -> float:
+        """Calculate cosine similarity between two vectors."""
+        dot_product = np.dot(vec1, vec2)
+        norm1 = np.linalg.norm(vec1)
+        norm2 = np.linalg.norm(vec2)
+        
+        if norm1 == 0 or norm2 == 0:
+            return 0.0
+        
+        return dot_product / (norm1 * norm2)
+    
+    def learn_from_experience(self, threat_example: ThreatExample):
+        """
+        Learn from a new threat example.
+        
+        Args:
+            threat_example: Threat example to learn from
+        """
+        # Add to experience memory
+        self.experience_memory.append(threat_example)
+        
+        # Maintain memory capacity
+        if len(self.experience_memory) > self.memory_capacity:
+            # Remove oldest experiences
+            self.experience_memory = self.experience_memory[-self.memory_capacity:]
+        
+        # Update neural network if this is a plasma cell
+        if self.cell_type == BCellType.PLASMA and self.model is not None:
+            self._update_model(threat_example)
+        
+        # Generate detection rule if activation was high
+        if self.activation_level > 0.8 and self.cell_type == BCellType.PLASMA:
+            rule = self._generate_detection_rule(threat_example)
+            if rule:
+                self.generated_rules.append(rule)
+    
+    def _update_model(self, threat_example: ThreatExample):
+        """Update neural network with new example."""
+        # Prepare training data
+        X = threat_example.features.reshape(1, -1)
+        y = np.array([1.0 if threat_example.label == 'malicious' else 0.0])
+        
+        # Train for one epoch
+        self.model.fit(X, y, epochs=1, verbose=0)
+    
+    def _generate_detection_rule(self, threat_example: ThreatExample) -> Optional[DetectionRule]:
+        """Generate detection rule from threat example."""
+        # Extract rule conditions from features
+        features = threat_example.features
+        conditions = []
+        
+        # Create conditions based on significant features
+        significant_indices = np.where(features > np.percentile(features, 75))[0]
+        
+        for idx in significant_indices[:5]:  # Limit to 5 conditions
+            condition = {
+                'feature_index': int(idx),
+                'threshold': float(features[idx]),
+                'comparison': 'greater_than'
+            }
+            conditions.append(condition)
+        
+        if not conditions:
+            return None
+        
+        rule_id = f"rule_{hashlib.md5(str(conditions).encode()).hexdigest()[:8]}"
+        
+        return DetectionRule(
+            id=rule_id,
+            name=f"AutoRule_{threat_example.label}",
+            rule_type="feature_threshold",
+            conditions=conditions,
+            created_by=self.cell_id,
+            created_at=datetime.now(),
+            confidence=threat_example.confidence,
+            effectiveness=0.5  # Initial effectiveness
+        )
+    
+    def evaluate_rule(self, rule: DetectionRule, test_data: List[ThreatExample]) -> float:
+        """Evaluate rule effectiveness on test data."""
+        if not test_data:
+            return 0.0
+        
+        correct_predictions = 0
+        total_predictions = 0
+        
+        for example in test_data:
+            prediction = self._apply_rule(rule, example.features)
+            actual = 1 if example.label == 'malicious' else 0
+            
+            if prediction == actual:
+                correct_predictions += 1
+            total_predictions += 1
+        
+        effectiveness = correct_predictions / total_predictions if total_predictions > 0 else 0.0
+        
+        # Update rule statistics
+        rule.effectiveness = effectiveness
+        rule.usage_count += total_predictions
+        rule.success_count += correct_predictions
+        
+        return effectiveness
+    
+    def _apply_rule(self, rule: DetectionRule, features: np.ndarray) -> int:
+        """Apply rule to features to make prediction."""
+        for condition in rule.conditions:
+            feature_idx = condition['feature_index']
+            threshold = condition['threshold']
+            comparison = condition['comparison']
+            
+            if feature_idx >= len(features):
+                continue
+            
+            feature_value = features[feature_idx]
+            
+            if comparison == 'greater_than':
+                if feature_value <= threshold:
+                    return 0  # Not malicious
+            elif comparison == 'less_than':
+                if feature_value >= threshold:
+                    return 0  # Not malicious
+            elif comparison == 'equals':
+                if feature_value != threshold:
+                    return 0  # Not malicious
+        
+        # All conditions met
+        return 1  # Malicious
+    
+    def get_status(self) -> Dict[str, Any]:
+        """Get B-Cell status."""
+        return {
+            'cell_id': self.cell_id,
+            'cell_type': self.cell_type.value,
+            'activation_level': self.activation_level,
+            'experience_count': len(self.experience_memory),
+            'rule_count': len(self.generated_rules),
+            'last_activation': self.last_activation.isoformat() if self.last_activation else None
+        }
+
+class TCell:
+    """
+    T-Cell analog for coordinating immune response.
+    """
+    
+    def __init__(self, cell_id: str, cell_type: TCellType, config: Dict[str, Any]):
+        self.cell_id = cell_id
+        self.cell_type = cell_type
+        self.config = config
+        self.response_strategies = {}
+        self.coordination_history = []
+        self.activated_bcells = []  # B-Cells activated by this T-Cell
+        
+        # Response effectiveness tracking
+        self.response_effectiveness = {
+            'total_responses': 0,
+            'successful_responses': 0,
+            'average_response_time': 0.0
+        }
+    
+    def coordinate_response(self, threat_data: Dict[str, Any], bcell_activations: Dict[str, float]) -> Dict[str, Any]:
+        """
+        Coordinate response to threat based on B-Cell activations.
+        
+        Args:
+            threat_data: Threat information
+            bcell_activations: Dictionary of B-Cell ID -> activation level
+            
+        Returns:
+            Response plan
+        """
+        # Determine threat severity
+        threat_severity = self._assess_threat_severity(threat_data, bcell_activations)
+        
+        # Select response strategy based on cell type
+        if self.cell_type == TCellType.HELPER:
+            response = self._helper_response(threat_severity, bcell_activations)
+        elif self.cell_type == TCellType.CYTOTOXIC:
+            response = self._cytotoxic_response(threat_severity, threat_data)
+        elif self.cell_type == TCellType.REGULATORY:
+            response = self._regulatory_response(threat_severity, bcell_activations)
+        else:
+            response = self._default_response(threat_severity)
+        
+        # Activate appropriate B-Cells
+        activated_cells = self._activate_bcells(bcell_activations, threat_severity)
+        self.activated_bcells.extend(activated_cells)
+        
+        # Record coordination
+        self.coordination_history.append({
+            'timestamp': datetime.now(),
+            'threat_severity': threat_severity,
+            'response_type': response['action'],
+            'activated_cells': activated_cells
+        })
+        
+        # Update statistics
+        self.response_effectiveness['total_responses'] += 1
+        
+        return response
+    
+    def _assess_threat_severity(self, threat_data: Dict[str, Any], bcell_activations: Dict[str, float]) -> str:
+        """Assess threat severity based on B-Cell activations."""
+        # Calculate average activation
+        activations = list(bcell_activations.values())
+        if not activations:
+            return 'low'
+        
+        avg_activation = np.mean(activations)
+        max_activation = np.max(activations)
+        
+        # Determine severity
+        if max_activation > 0.9 or avg_activation > 0.7:
+            return 'critical'
+        elif max_activation > 0.7 or avg_activation > 0.5:
+            return 'high'
+        elif max_activation > 0.5 or avg_activation > 0.3:
+            return 'medium'
+        else:
+            return 'low'
+    
+    def _helper_response(self, severity: str, bcell_activations: Dict[str, float]) -> Dict[str, Any]:
+        """Helper T-Cell response - amplifies immune response."""
+        # Identify most activated B-Cells
+        sorted_activations = sorted(bcell_activations.items(), key=lambda x: x[1], reverse=True)
+        top_bcells = [cell_id for cell_id, activation in sorted_activations[:3]]
+        
+        return {
+            'action': 'amplify_response',
+            'severity': severity,
+            'amplification_factor': 2.0 if severity in ['high', 'critical'] else 1.5,
+            'target_cells': top_bcells,
+            'response_time': 'immediate'
+        }
+    
+    def _cytotoxic_response(self, severity: str, threat_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Cytotoxic T-Cell response - eliminates threats."""
+        response_actions = []
+        
+        if 'network' in threat_data:
+            response_actions.append({
+                'type': 'network_block',
+                'target': threat_data['network'].get('source_ip'),
+                'duration': 'permanent' if severity in ['high', 'critical'] else 'temporary'
+            })
+        
+        if 'process' in threat_data:
+            response_actions.append({
+                'type': 'process_termination',
+                'pid': threat_data['process'].get('pid'),
+                'force': True
+            })
+        
+        if 'file' in threat_data:
+            response_actions.append({
+                'type': 'file_quarantine',
+                'path': threat_data['file'].get('path')
+            })
+        
+        return {
+            'action': 'eliminate_threat',
+            'severity': severity,
+            'actions': response_actions,
+            'response_time': 'immediate'
+        }
+    
+    def _regulatory_response(self, severity: str, bcell_activations: Dict[str, float]) -> Dict[str, Any]:
+        """Regulatory T-Cell response - modulates immune response."""
+        # Calculate activation spread
+        activations = list(bcell_activations.values())
+        activation_std = np.std(activations) if len(activations) > 1 else 0.0
+        
+        # Determine modulation
+        if activation_std > 0.3:
+            # High variance, need to normalize response
+            modulation = 'normalize'
+            modulation_strength = 0.7
+        else:
+            # Stable activation, fine-tune response
+            modulation = 'fine_tune'
+            modulation_strength = 0.3
+        
+        return {
+            'action': 'modulate_response',
+            'severity': severity,
+            'modulation_type': modulation,
+            'modulation_strength': modulation_strength,
+            'target_variance': 0.2,  # Target activation variance
+            'response_time': 'gradual'
+        }
+    
+    def _default_response(self, severity: str) -> Dict[str, Any]:
+        """Default response strategy."""
+        return {
+            'action': 'monitor',
+            'severity': severity,
+            'monitoring_intensity': 'high' if severity in ['high', 'critical'] else 'medium',
+            'response_time': 'delayed'
+        }
+    
+    def _activate_bcells(self, bcell_activations: Dict[str, float], severity: str) -> List[str]:
+        """Activate B-Cells based on activation levels."""
+        activation_threshold = {
+            'critical': 0.5,
+            'high': 0.6,
+            'medium': 0.7,
+            'low': 0.8
+        }
+        
+        threshold = activation_threshold.get(severity, 0.7)
+        activated = [cell_id for cell_id, activation in bcell_activations.items() 
+                    if activation >= threshold]
+        
+        return activated
+    
+    def learn_response_effectiveness(self, response_result: Dict[str, Any]):
+        """Learn from response effectiveness."""
+        success = response_result.get('success', False)
+        response_time = response_result.get('response_time', 0.0)
+        
+        if success:
+            self.response_effectiveness['successful_responses'] += 1
+        
+        # Update average response time
+        total = self.response_effectiveness['total_responses']
+        current_avg = self.response_effectiveness['average_response_time']
+        new_avg = (current_avg * (total - 1) + response_time) / total if total > 0 else response_time
+        self.response_effectiveness['average_response_time'] = new_avg
+        
+        # Store response strategy for future reference
+        strategy_key = response_result.get('strategy_hash')
+        if strategy_key:
+            if strategy_key not in self.response_strategies:
+                self.response_strategies[strategy_key] = {
+                    'usage_count': 0,
+                    'success_count': 0,
+                    'average_time': 0.0
+                }
+            
+            strategy = self.response_strategies[strategy_key]
+            strategy['usage_count'] += 1
+            if success:
+                strategy['success_count'] += 1
+            strategy['average_time'] = (
+                (strategy['average_time'] * (strategy['usage_count'] - 1) + response_time) /
+                strategy['usage_count']
+            )
+    
+    def get_optimal_response(self, threat_type: str) -> Optional[Dict[str, Any]]:
+        """Get optimal response strategy for threat type."""
+        # Find most successful strategy for this threat type
+        strategies = []
+        for strategy_key, stats in self.response_strategies.items():
+            if threat_type in strategy_key:
+                success_rate = stats['success_count'] / stats['usage_count'] if stats['usage_count'] > 0 else 0
+                strategies.append((success_rate, strategy_key, stats))
+        
+        if not strategies:
+            return None
+        
+        # Return strategy with highest success rate
+        strategies.sort(reverse=True, key=lambda x: x[0])
+        best_success_rate, best_key, best_stats = strategies[0]
+        
+        return {
+            'strategy_key': best_key,
+            'success_rate': best_success_rate,
+            'usage_count': best_stats['usage_count'],
+            'average_response_time': best_stats['average_time']
+        }
+    
+    def get_status(self) -> Dict[str, Any]:
+        """Get T-Cell status."""
+        return {
+            'cell_id': self.cell_id,
+            'cell_type': self.cell_type.value,
+            'response_effectiveness': self.response_effectiveness,
+            'coordination_count': len(self.coordination_history),
+            'active_bcells': len(self.activated_bcells),
+            'learned_strategies': len(self.response_strategies)
+        }
+
+class AdaptiveImmuneSystem:
+    """
+    Main adaptive immune system orchestrator.
+    Manages B-Cells and T-Cells for adaptive threat response.
+    """
+    
+    def __init__(self, config: Dict[str, Any]):
+        self.config = config
+        self.bcells: Dict[str, BCell] = {}
+        self.tcells: Dict[str, TCell] = {}
+        self.detection_rules: Dict[str, DetectionRule] = {}
+        self.threat_history = []
+        
+        # Initialize immune cells
+        self._initialize_immune_cells()
+        
+        # Clustering for threat pattern discovery
+        self.scaler = StandardScaler()
+        self.clusterer = DBSCAN(eps=0.5, min_samples=2)
+        
+        # Training data
+        self.training_examples = []
+        
+    def _initialize_immune_cells(self):
+        """Initialize B-Cells and T-Cells."""
+        # Create B-Cells
+        bcell_config = self.config.get('bcell_config', {})
+        bcell_types = [
+            (BCellType.NAIVE, 10),      # 10 naive cells
+            (BCellType.MEMORY, 5),      # 5 memory cells
+            (BCellType.PLASMA, 8),      # 8 plasma cells
+            (BCellType.REGULATORY, 3)   # 3 regulatory cells
+        ]
+        
+        for cell_type, count in bcell_types:
+            for i in range(count):
+                cell_id = f"bcell_{cell_type.value}_{i}"
+                self.bcells[cell_id] = BCell(cell_id, cell_type, bcell_config)
+        
+        # Create T-Cells
+        tcell_config = self.config.get('tcell_config', {})
+        tcell_types = [
+            (TCellType.HELPER, 4),      # 4 helper cells
+            (TCellType.CYTOTOXIC, 6),   # 6 cytotoxic cells
+            (TCellType.REGULATORY, 3),  # 3 regulatory cells
+            (TCellType.MEMORY, 2)       # 2 memory cells
+        ]
+        
+        for cell_type, count in tcell_types:
+            for i in range(count):
+                cell_id = f"tcell_{cell_type.value}_{i}"
+                self.tcells[cell_id] = TCell(cell_id, cell_type, tcell_config)
+        
+        print(f"Initialized {len(self.bcells)} B-Cells and {len(self.tcells)} T-Cells")
+    
+    async def process_threat(self, threat_data: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Process threat through adaptive immune system.
+        
+        Args:
+            threat_data: Threat information
+            
+        Returns:
+            Adaptive response
+        """
+        start_time = datetime.now()
+        
+        # Step 1: Activate B-Cells
+        bcell_activations = {}
+        for bcell_id, bcell in self.bcells.items():
+            activation = bcell.activate(threat_data)
+            bcell_activations[bcell_id] = activation
+        
+        # Step 2: Coordinate response with T-Cells
+        responses = []
+        for tcell_id, tcell in self.tcells.items():
+            response = tcell.coordinate_response(threat_data, bcell_activations)
+            responses.append({
+                'tcell_id': tcell_id,
+                'response': response
+            })
+        
+        # Step 3: Consolidate responses
+        consolidated_response = self._consolidate_responses(responses)
+        
+        # Step 4: Generate detection rules from highly activated plasma cells
+        detection_rules = []
+        for bcell_id, activation in bcell_activations.items():
+            bcell = self.bcells[bcell_id]
+            if bcell.cell_type == BCellType.PLASMA and activation > 0.8:
+                # Create threat example for learning
+                threat_example = ThreatExample(
+                    id=hashlib.md5(str(threat_data).encode()).hexdigest(),
+                    features=bcell._extract_features(threat_data),
+                    label='malicious' if consolidated_response['severity'] in ['high', 'critical'] else 'benign',
+                    metadata=threat_data,
+                    timestamp=datetime.now(),
+                    confidence=activation
+                )
+                
+                # Learn from experience
+                bcell.learn_from_experience(threat_example)
+                
+                # Store for clustering
+                self.training_examples.append(threat_example)
+                
+                # Collect new rules
+                detection_rules.extend(bcell.generated_rules)
+        
+        # Step 5: Update detection rules database
+        for rule in detection_rules:
+            if rule.id not in self.detection_rules:
+                self.detection_rules[rule.id] = rule
+        
+        # Step 6: Perform clustering to discover new threat patterns
+        if len(self.training_examples) >= 10:
+            self._discover_threat_patterns()
+        
+        # Record threat in history
+        processing_time = (datetime.now() - start_time).total_seconds()
+        self.threat_history.append({
+            'timestamp': datetime.now(),
+            'threat_data': threat_data,
+            'bcell_activations': bcell_activations,
+            'response': consolidated_response,
+            'processing_time': processing_time,
+            'new_rules_generated': len(detection_rules)
+        })
+        
+        # Trim history
+        if len(self.threat_history) > 1000:
+            self.threat_history = self.threat_history[-1000:]
+        
+        return {
+            'adaptive_response': consolidated_response,
+            'bcell_activations': bcell_activations,
+            'detection_rules_generated': len(detection_rules),
+            'processing_time': processing_time,
+            'timestamp': datetime.now().isoformat()
+        }
+    
+    def _consolidate_responses(self, responses: List[Dict[str, Any]]) -> Dict[str, Any]:
+        """Consolidate multiple T-Cell responses."""
+        if not responses:
+            return {'action': 'monitor', 'severity': 'low'}
+        
+        # Group by response type
+        response_counts = defaultdict(int)
+        severity_counts = defaultdict(int)
+        all_actions = []
+        
+        for response in responses:
+            resp_data = response['response']
+            response_counts[resp_data['action']] += 1
+            severity_counts[resp_data['severity']] += 1
+            all_actions.append(resp_data)
+        
+        # Determine most common response
+        most_common_response = max(response_counts.items(), key=lambda x: x[1])
+        most_common_severity = max(severity_counts.items(), key=lambda x: x[1])
+        
+        # Find cytotoxic responses for elimination actions
+        cytotoxic_actions = []
+        for response in responses:
+            if 'cytotoxic' in response['tcell_id']:
+                cytotoxic_actions.append(response['response'])
+        
+        # Build consolidated response
+        consolidated = {
+            'action': most_common_response[0],
+            'severity': most_common_severity[0],
+            'confidence': most_common_response[1] / len(responses),
+            'supporting_cells': len(responses),
+            'cytotoxic_actions': cytotoxic_actions
+        }
+        
+        return consolidated
+    
+    def _discover_threat_patterns(self):
+        """Discover new threat patterns through clustering."""
+        if len(self.training_examples) < 10:
+            return
+        
+        # Prepare features for clustering
+        features = np.array([ex.features for ex in self.training_examples[-100:]])  # Use recent examples
+        
+        # Scale features
+        features_scaled = self.scaler.fit_transform(features)
+        
+        # Perform clustering
+        clusters = self.clusterer.fit_predict(features_scaled)
+        
+        # Analyze clusters for patterns
+        unique_clusters = np.unique(clusters)
+        patterns = []
+        
+        for cluster_id in unique_clusters:
+            if cluster_id == -1:  # Noise
+                continue
+            
+            # Get examples in this cluster
+            cluster_indices = np.where(clusters == cluster_id)[0]
+            cluster_examples = [self.training_examples[i] for i in cluster_indices]
+            
+            # Analyze common features
+            if len(cluster_examples) >= 3:  # Minimum cluster size
+                pattern = self._analyze_cluster_pattern(cluster_examples)
+                if pattern:
+                    patterns.append(pattern)
+        
+        # Generate rules from discovered patterns
+        for pattern in patterns:
+            rule = self._create_pattern_rule(pattern)
+            if rule and rule.id not in self.detection_rules:
+                self.detection_rules[rule.id] = rule
+    
+    def _analyze_cluster_pattern(self, examples: List[ThreatExample]) -> Optional[Dict[str, Any]]:
+        """Analyze cluster to discover threat pattern."""
+        if not examples:
+            return None
+        
+        # Calculate feature statistics
+        features_matrix = np.array([ex.features for ex in examples])
+        mean_features = np.mean(features_matrix, axis=0)
+        std_features = np.std(features_matrix, axis=0)
+        
+        # Find significant features (high mean, low variance)
+        significant_indices = np.where((mean_features > 0.5) & (std_features < 0.2))[0]
+        
+        if len(significant_indices) == 0:
+            return None
+        
+        # Get common labels
+        labels = [ex.label for ex in examples]
+        most_common_label = max(set(labels), key=labels.count)
+        
+        return {
+            'feature_indices': significant_indices.tolist(),
+            'feature_means': mean_features[significant_indices].tolist(),
+            'label': most_common_label,
+            'cluster_size': len(examples),
+            'confidence': len([l for l in labels if l == most_common_label]) / len(labels)
+        }
+    
+    def _create_pattern_rule(self, pattern: Dict[str, Any]) -> Optional[DetectionRule]:
+        """Create detection rule from discovered pattern."""
+        conditions = []
+        
+        for i, feature_idx in enumerate(pattern['feature_indices'][:5]):  # Limit to 5 conditions
+            mean_value = pattern['feature_means'][i]
+            conditions.append({
+                'feature_index': int(feature_idx),
+                'threshold': float(mean_value * 0.9),  # 90% of mean
+                'comparison': 'greater_than'
+            })
+        
+        if not conditions:
+            return None
+        
+        rule_id = f"pattern_rule_{hashlib.md5(str(pattern).encode()).hexdigest()[:8]}"
+        
+        return DetectionRule(
+            id=rule_id,
+            name=f"PatternRule_{pattern['label']}",
+            rule_type="cluster_pattern",
+            conditions=conditions,
+            created_by="clustering_engine",
+            created_at=datetime.now(),
+            confidence=pattern['confidence'],
+            effectiveness=0.6  # Initial effectiveness
+        )
+    
+    def apply_detection_rules(self, features: np.ndarray) -> List[Dict[str, Any]]:
+        """
+        Apply all detection rules to features.
+        
+        Args:
+            features: Feature vector
+            
+        Returns:
+            List of matching rules
+        """
+        matches = []
+        
+        for rule_id, rule in self.detection_rules.items():
+            # Skip low-confidence rules
+            if rule.confidence < 0.5:
+                continue
+            
+            # Apply rule
+            is_match = True
+            for condition in rule.conditions:
+                feature_idx = condition['feature_index']
+                threshold = condition['threshold']
+                comparison = condition['comparison']
+                
+                if feature_idx >= len(features):
+                    is_match = False
+                    break
+                
+                feature_value = features[feature_idx]
+                
+                if comparison == 'greater_than' and feature_value <= threshold:
+                    is_match = False
+                    break
+                elif comparison == 'less_than' and feature_value >= threshold:
+                    is_match = False
+                    break
+                elif comparison == 'equals' and feature_value != threshold:
+                    is_match = False
+                    break
+            
+            if is_match:
+                matches.append({
+                    'rule_id': rule_id,
+                    'rule_name': rule.name,
+                    'confidence': rule.confidence,
+                    'effectiveness': rule.effectiveness,
+                    'usage_count': rule.usage_count
+                })
+        
+        return matches
+    
+    def evaluate_rule_performance(self, test_data: List[Tuple[np.ndarray, str]]):
+        """Evaluate performance of all detection rules."""
+        for rule_id, rule in self.detection_rules.items():
+            # Skip newly created rules
+            if rule.usage_count < 10:
+                continue
+            
+            correct = 0
+            total = 0
+            
+            for features, label in test_data:
+                # Apply rule
+                is_match = True
+                for condition in rule.conditions:
+                    feature_idx = condition['feature_index']
+                    threshold = condition['threshold']
+                    comparison = condition['comparison']
+                    
+                    if feature_idx >= len(features):
+                        is_match = False
+                        break
+                    
+                    feature_value = features[feature_idx]
+                    
+                    if comparison == 'greater_than' and feature_value <= threshold:
+                        is_match = False
+                        break
+                    elif comparison == 'less_than' and feature_value >= threshold:
+                        is_match = False
+                        break
+                    elif comparison == 'equals' and feature_value != threshold:
+                        is_match = False
+                        break
+                
+                # Check if prediction matches label
+                predicted_malicious = is_match
+                actual_malicious = label == 'malicious'
+                
+                if predicted_malicious == actual_malicious:
+                    correct += 1
+                total += 1
+            
+            if total > 0:
+                # Update rule effectiveness
+                old_effectiveness = rule.effectiveness
+                new_effectiveness = correct / total
+                
+                # Moving average update
+                rule.effectiveness = 0.8 * old_effectiveness + 0.2 * new_effectiveness
+                
+                # Update confidence based on effectiveness
+                rule.confidence = min(1.0, rule.confidence * (1 + (new_effectiveness - 0.5)))
+    
+    def get_system_status(self) -> Dict[str, Any]:
+        """Get adaptive immune system status."""
+        # Calculate statistics
+        bcell_stats = defaultdict(int)
+        for bcell in self.bcells.values():
+            bcell_stats[bcell.cell_type.value] += 1
+        
+        tcell_stats = defaultdict(int)
+        for tcell in self.tcells.values():
+            tcell_stats[tcell.cell_type.value] += 1
+        
+        # Calculate average rule effectiveness
+        rule_effectiveness = [rule.effectiveness for rule in self.detection_rules.values()]
+        avg_effectiveness = np.mean(rule_effectiveness) if rule_effectiveness else 0.0
+        
+        return {
+            'system': 'adaptive_immunity',
+            'status': 'active',
+            'bcell_counts': dict(bcell_stats),
+            'tcell_counts': dict(tcell_stats),
+            'detection_rules': len(self.detection_rules),
+            'average_rule_effectiveness': avg_effectiveness,
+            'threats_processed': len(self.threat_history),
+            'training_examples': len(self.training_examples)
+        }
+    
+    def save_state(self, directory: str):
+        """Save system state to directory."""
+        state_dir = Path(directory)
+        state_dir.mkdir(parents=True, exist_ok=True)
+        
+        # Save B-Cells
+        bcell_state = {}
+        for bcell_id, bcell in self.bcells.items():
+            bcell_state[bcell_id] = {
+                'cell_type': bcell.cell_type.value,
+                'experience_memory': [ex.__dict__ for ex in bcell.experience_memory],
+                'generated_rules': [rule.__dict__ for rule in bcell.generated_rules],
+                'activation_level': bcell.activation_level
+            }
+        
+        with open(state_dir / 'bcells.pkl', 'wb') as f:
+            pickle.dump(bcell_state, f)
+        
+        # Save T-Cells
+        tcell_state = {}
+        for tcell_id, tcell in self.tcells.items():
+            tcell_state[tcell_id] = {
+                'cell_type': tcell.cell_type.value,
+                'response_strategies': tcell.response_strategies,
+                'response_effectiveness': tcell.response_effectiveness
+            }
+        
+        with open(state_dir / 'tcells.pkl', 'wb') as f:
+            pickle.dump(tcell_state, f)
+        
+        # Save detection rules
+        rules_state = {rule_id: rule.__dict__ for rule_id, rule in self.detection_rules.items()}
+        with open(state_dir / 'detection_rules.pkl', 'wb') as f:
+            pickle.dump(rules_state, f)
+        
+        print(f"Saved adaptive immune system state to {directory}")
+    
+    def load_state(self, directory: str):
+        """Load system state from directory."""
+        state_dir = Path(directory)
+        
+        try:
+            # Load B-Cells
+            with open(state_dir / 'bcells.pkl', 'rb') as f:
+                bcell_state = pickle.load(f)
+            
+            for bcell_id, state in bcell_state.items():
+                if bcell_id in self.bcells:
+                    bcell = self.bcells[bcell_id]
+                    bcell.experience_memory = [
+                        ThreatExample(**ex) for ex in state['experience_memory']
+                    ]
+                    bcell.generated_rules = [
+                        DetectionRule(**rule) for rule in state['generated_rules']
+                    ]
+                    bcell.activation_level = state['activation_level']
+            
+            # Load T-Cells
+            with open(state_dir / 'tcells.pkl', 'rb') as f:
+                tcell_state = pickle.load(f)
+            
+            for tcell_id, state in tcell_state.items():
+                if tcell_id in self.tcells:
+                    tcell = self.tcells[tcell_id]
+                    tcell.response_strategies = state['response_strategies']
+                    tcell.response_effectiveness = state['response_effectiveness']
+            
+            # Load detection rules
+            with open(state_dir / 'detection_rules.pkl', 'rb') as f:
+                rules_state = pickle.load(f)
+            
+            self.detection_rules = {}
+            for rule_id, rule_data in rules_state.items():
+                self.detection_rules[rule_id] = DetectionRule(**rule_data)
+            
+            print(f"Loaded adaptive immune system state from {directory}")
+            
+        except FileNotFoundError as e:
+            print(f"State files not found in {directory}: {e}")
+```
+
+src/qb_ai_cyber/core/quantum_security/qkd_engine.py
+
+```python
+"""
+Quantum Key Distribution (QKD) Engine
+Implementation of BB84 and E91 protocols for secure key exchange.
+"""
+
+import numpy as np
+import hashlib
+import secrets
+from typing import Dict, List, Optional, Tuple, Any
+from dataclasses import dataclass
+from enum import Enum
+import asyncio
+from datetime import datetime, timedelta
+import struct
+import socket
+import ssl
+from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
+from cryptography.hazmat.primitives import padding
+from cryptography.hazmat.backends import default_backend
+import base64
+
+class QKDProtocol(Enum):
+    """Supported QKD protocols."""
+    BB84 = "bb84"
+    E91 = "e91"
+    SARG04 = "sarg04"
+    COW = "cow"
+
+class QuantumState(Enum):
+    """Quantum state representations."""
+    ZERO = 0
+    ONE = 1
+    PLUS = 2  # |+> = (|0> + |1>)/√2
+    MINUS = 3 # |-> = (|0> - |1>)/√2
+
+@dataclass
+class Qubit:
+    """Represents a single qubit."""
+    state: QuantumState
+    basis: int  # 0 for computational (Z), 1 for Hadamard (X)
+    id: str
+    timestamp: datetime
+
+@dataclass
+class QuantumChannel:
+    """Quantum communication channel."""
+    channel_id: str
+    protocol: QKDProtocol
+    max_distance: float  # in kilometers
+    loss_rate: float  # photons lost per km
+    polarization_error: float
+    timestamp: datetime
+
+class QKDEngine:
+    """
+    Quantum Key Distribution Engine implementing BB84 protocol.
+    """
+    
+    def __init__(self, config: Dict[str, Any]):
+        self.config = config
+        self.protocol = QKDProtocol(config.get('protocol', 'bb84'))
+        self.key_length = config.get('key_length', 256)
+        self.error_threshold = config.get('error_threshold', 0.11)
+        
+        # Quantum state storage
+        self.qubit_buffer: Dict[str, Qubit] = {}
+        self.sifted_keys: Dict[str, List[int]] = {}
+        self.final_keys: Dict[str, bytes] = {}
+        
+        # Error tracking
+        self.error_rates: Dict[str, float] = {}
+        self.key_rates: Dict[str, float] = {}
+        
+        # Security metrics
+        self.security_metrics = {
+            'keys_generated': 0,
+            'keys_compromised': 0,
+            'eavesdropping_detected': 0,
+            'quantum_bit_error_rate': 0.0
+        }
+        
+        # Classical communication channel (simulated)
+        self.classical_channel = ClassicalChannel()
+        
+        print(f"Initialized QKD Engine with {self.protocol.value} protocol")
+    
+    def prepare_qubits(self, num_qubits: int, sender_id: str) -> List[Qubit]:
+        """
+        Prepare qubits for transmission (Alice's side).
+        
+        Args:
+            num_qubits: Number of qubits to prepare
+            sender_id: Sender identifier
+            
+        Returns:
+            List of prepared qubits
+        """
+        qubits = []
+        
+        for i in range(num_qubits):
+            # Randomly choose bit value (0 or 1)
+            bit = secrets.randbelow(2)
+            
+            # Randomly choose basis (0 for Z, 1 for X)
+            basis = secrets.randbelow(2)
+            
+            # Determine quantum state
+            if basis == 0:  # Z basis
+                state = QuantumState.ZERO if bit == 0 else QuantumState.ONE
+            else:  # X basis
+                state = QuantumState.PLUS if bit == 0 else QuantumState.MINUS
+            
+            qubit_id = f"{sender_id}_qubit_{i}_{datetime.now().timestamp()}"
+            qubit = Qubit(
+                state=state,
+                basis=basis,
+                id=qubit_id,
+                timestamp=datetime.now()
+            )
+            
+            qubits.append(qubit)
+            
+            # Store in buffer with encoded information
+            encoded_info = (bit, basis)
+            self.qubit_buffer[qubit_id] = qubit
+        
+        return qubits
+    
+    def measure_qubits(self, qubits: List[Qubit], receiver_id: str, 
+                       bases: Optional[List[int]] = None) -> Tuple[List[int], List[int]]:
+        """
+        Measure qubits (Bob's side).
+        
+        Args:
+            qubits: List of qubits to measure
+            receiver_id: Receiver identifier
+            bases: Optional list of measurement bases
+            
+        Returns:
+            Tuple of (measured_bits, used_bases)
+        """
+        if bases is None:
+            # Randomly choose measurement bases
+            bases = [secrets.randbelow(2) for _ in range(len(qubits))]
+        
+        measured_bits = []
+        
+        for qubit, basis in zip(qubits, bases):
+            if qubit.basis == basis:
+                # Same basis - measurement gives definite result
+                if qubit.state in [QuantumState.ZERO, QuantumState.PLUS]:
+                    measured_bit = 0
+                else:
+                    measured_bit = 1
+            else:
+                # Different basis - random result (50/50)
+                measured_bit = secrets.randbelow(2)
+            
+            measured_bits.append(measured_bit)
+        
+        return measured_bits, bases
+    
+    async def bb84_key_exchange(self, alice_id: str, bob_id: str, 
+                               num_qubits: int = 1000) -> Optional[bytes]:
+        """
+        Perform BB84 key exchange protocol.
+        
+        Args:
+            alice_id: Sender identifier
+            bob_id: Receiver identifier
+            num_qubits: Number of qubits to exchange
+            
+        Returns:
+            Shared secret key or None if failed
+        """
+        session_id = f"{alice_id}_{bob_id}_{datetime.now().timestamp()}"
+        
+        try:
+            # Step 1: Alice prepares qubits
+            print(f"[{session_id}] Step 1: Alice preparing {num_qubits} qubits...")
+            qubits = self.prepare_qubits(num_qubits, alice_id)
+            
+            # Step 2: Transmit qubits (simulated)
+            print(f"[{session_id}] Step 2: Transmitting qubits...")
+            transmitted_qubits = self.simulate_transmission(qubits)
+            
+            # Step 3: Bob measures qubits
+            print(f"[{session_id}] Step 3: Bob measuring qubits...")
+            measured_bits, bob_bases = self.measure_qubits(transmitted_qubits, bob_id)
+            
+            # Step 4: Basis reconciliation over classical channel
+            print(f"[{session_id}] Step 4: Basis reconciliation...")
+            alice_bases = [q.basis for q in qubits]
+            
+            # Compare bases and keep bits where bases match
+            matching_indices = []
+            sifted_key_alice = []
+            sifted_key_bob = []
+            
+            for i, (alice_basis, bob_basis) in enumerate(zip(alice_bases, bob_bases)):
+                if alice_basis == bob_basis:
+                    matching_indices.append(i)
+                    # Get original bit from Alice
+                    original_bit = 0 if qubits[i].state in [QuantumState.ZERO, QuantumState.PLUS] else 1
+                    sifted_key_alice.append(original_bit)
+                    sifted_key_bob.append(measured_bits[i])
+            
+            print(f"[{session_id}] Bases match at {len(matching_indices)} positions")
+            
+            if len(matching_indices) < self.key_length:
+                print(f"[{session_id}] Insufficient matching bases for key length {self.key_length}")
+                return None
+            
+            # Step 5: Error estimation
+            print(f"[{session_id}] Step 5: Error estimation...")
+            # Use subset of bits for error estimation
+            sample_size = min(100, len(sifted_key_alice) // 2)
+            sample_indices = secrets.SystemRandom().sample(range(len(sifted_key_alice)), sample_size)
+            
+            error_count = 0
+            for idx in sample_indices:
+                if sifted_key_alice[idx] != sifted_key_bob[idx]:
+                    error_count += 1
+            
+            error_rate = error_count / sample_size
+            self.error_rates[session_id] = error_rate
+            
+            print(f"[{session_id}] Estimated error rate: {error_rate:.3f}")
+            
+            if error_rate > self.error_threshold:
+                print(f"[{session_id}] Error rate too high, possible eavesdropping")
+                self.security_metrics['eavesdropping_detected'] += 1
+                return None
+            
+            # Step 6: Error correction
+            print(f"[{session_id}] Step 6: Error correction...")
+            corrected_key = self.cascade_error_correction(sifted_key_alice, sifted_key_bob, error_rate)
+            
+            # Step 7: Privacy amplification
+            print(f"[{session_id}] Step 7: Privacy amplification...")
+            final_key = self.privacy_amplification(corrected_key, error_rate)
+            
+            # Step 8: Store keys
+            key_id = f"key_{session_id}"
+            self.final_keys[key_id] = final_key
+            self.sifted_keys[session_id] = sifted_key_alice
+            
+            # Update metrics
+            self.security_metrics['keys_generated'] += 1
+            self.key_rates[session_id] = len(final_key) * 8  # bits
+            
+            print(f"[{session_id}] Key exchange successful!")
+            print(f"[{session_id}] Generated {len(final_key)} byte key")
+            print(f"[{session_id}] Key fingerprint: {hashlib.sha256(final_key).hexdigest()[:16]}")
+            
+            return final_key
+            
+        except Exception as e:
+            print(f"[{session_id}] Key exchange failed: {e}")
+            return None
+    
+    def simulate_transmission(self, qubits: List[Qubit], 
+                             distance_km: float = 50.0) -> List[Qubit]:
+        """
+        Simulate quantum transmission with losses and errors.
+        
+        Args:
+            qubits: List of qubits to transmit
+            distance_km: Transmission distance in kilometers
+            
+        Returns:
+            Transmitted qubits (some may be lost)
+        """
+        transmitted = []
+        loss_rate = self.config.get('loss_rate_per_km', 0.2)
+        polarization_error = self.config.get('polarization_error', 0.01)
+        
+        total_loss = 1 - np.exp(-loss_rate * distance_km)
+        
+        for qubit in qubits:
+            # Simulate photon loss
+            if secrets.random() < total_loss:
+                continue  # Photon lost
+            
+            # Simulate polarization error
+            if secrets.random() < polarization_error:
+                # Randomly flip state
+                if qubit.state == QuantumState.ZERO:
+                    qubit.state = QuantumState.ONE
+                elif qubit.state == QuantumState.ONE:
+                    qubit.state = QuantumState.ZERO
+                elif qubit.state == QuantumState.PLUS:
+                    qubit.state = QuantumState.MINUS
+                elif qubit.state == QuantumState.MINUS:
+                    qubit.state = QuantumState.PLUS
+            
+            transmitted.append(qubit)
+        
+        print(f"Transmitted {len(transmitted)}/{len(qubits)} qubits "
+              f"({len(qubits)-len(transmitted)} lost)")
+        
+        return transmitted
+    
+    def cascade_error_correction(self, alice_bits: List[int], 
+                                bob_bits: List[int], 
+                                error_rate: float) -> List[int]:
+        """
+        Perform Cascade error correction protocol.
+        
+        Args:
+            alice_bits: Alice's bit string
+            bob_bits: Bob's bit string
+            error_rate: Estimated error rate
+            
+        Returns:
+            Corrected bit string
+        """
+        # Simple parity-based error correction
+        block_size = max(1, int(1 / error_rate))
+        
+        corrected_bits = bob_bits.copy()
+        
+        for i in range(0, len(alice_bits), block_size):
+            block_end = min(i + block_size, len(alice_bits))
+            
+            # Calculate parity for Alice's block
+            alice_parity = sum(alice_bits[i:block_end]) % 2
+            
+            # Calculate parity for Bob's block
+            bob_parity = sum(corrected_bits[i:block_end]) % 2
+            
+            # If parities don't match, find and correct error
+            if alice_parity != bob_parity:
+                # Simple error location (in reality would use binary search)
+                for j in range(i, block_end):
+                    if alice_bits[j] != corrected_bits[j]:
+                        corrected_bits[j] = alice_bits[j]
+                        break
+        
+        # Verify correction
+        errors_remaining = sum(a != b for a, b in zip(alice_bits, corrected_bits))
+        print(f"Error correction: {errors_remaining} errors remaining")
+        
+        return corrected_bits
+    
+    def privacy_amplification(self, key_bits: List[int], 
+                            error_rate: float) -> bytes:
+        """
+        Perform privacy amplification using universal hashing.
+        
+        Args:
+            key_bits: Input bit string
+            error_rate: Estimated error rate
+            
+        Returns:
+            Amplified secure key
+        """
+        # Convert bits to bytes
+        key_bytes = self._bits_to_bytes(key_bits)
+        
+        # Calculate secure key length based on error rate
+        # Using Csiszár-Körner bound
+        secure_fraction = 1 - 2 * binary_entropy(error_rate)
+        secure_bits = int(len(key_bits) * secure_fraction)
+        secure_bytes = max(16, secure_bits // 8)  # Minimum 16 bytes
+        
+        print(f"Privacy amplification: {len(key_bytes)} bytes -> {secure_bytes} bytes")
+        
+        # Use hash-based extraction
+        extracted_key = hashlib.shake_128(key_bytes).digest(secure_bytes)
+        
+        return extracted_key
+    
+    def _bits_to_bytes(self, bits: List[int]) -> bytes:
+        """Convert list of bits to bytes."""
+        byte_array = bytearray()
+        
+        for i in range(0, len(bits), 8):
+            byte = 0
+            for j in range(8):
+                if i + j < len(bits):
+                    byte |= (bits[i + j] << (7 - j))
+            byte_array.append(byte)
+        
+        return bytes(byte_array)
+    
+    def encrypt_with_qkd(self, data: bytes, key_id: str) -> Tuple[bytes, bytes]:
+        """
+        Encrypt data using QKD-generated key.
+        
+        Args:
+            data: Data to encrypt
+            key_id: QKD key identifier
+            
+        Returns:
+            Tuple of (iv, ciphertext)
+        """
+        if key_id not in self.final_keys:
+            raise ValueError(f"Key {key_id} not found")
+        
+        key = self.final_keys[key_id]
+        
+        # Generate random IV
+        iv = secrets.token_bytes(16)
+        
+        # Encrypt using AES-GCM
+        cipher = Cipher(
+            algorithms.AES(key),
+            modes.GCM(iv),
+            backend=default_backend()
+        )
+        
+        encryptor = cipher.encryptor()
+        ciphertext = encryptor.update(data) + encryptor.finalize()
+        
+        return iv, ciphertext
+    
+    def decrypt_with_qkd(self, iv: bytes, ciphertext: bytes, 
+                        key_id: str) -> bytes:
+        """
+        Decrypt data using QKD-generated key.
+        
+        Args:
+            iv: Initialization vector
+            ciphertext: Encrypted data
+            key_id: QKD key identifier
+            
+        Returns:
+            Decrypted plaintext
+        """
+        if key_id not in self.final_keys:
+            raise ValueError(f"Key {key_id} not found")
+        
+        key = self.final_keys[key_id]
+        
+        # Decrypt using AES-GCM
+        cipher = Cipher(
+            algorithms.AES(key),
+            modes.GCM(iv),
+            backend=default_backend()
+        )
+        
+        decryptor = cipher.decryptor()
+        plaintext = decryptor.update(ciphertext) + decryptor.finalize()
+        
+        return plaintext
+    
+    def detect_eavesdropping(self, session_id: str, 
+                            estimated_error_rate: float) -> bool:
+        """
+        Detect potential eavesdropping based on error rate.
+        
+        Args:
+            session_id: Session identifier
+            estimated_error_rate: Measured error rate
+            
+        Returns:
+            True if eavesdropping suspected
+        """
+        # Theoretical QBER without eavesdropping
+        theoretical_qber = self.config.get('theoretical_qber', 0.01)
+        
+        # Calculate threshold (theoretical + margin)
+        threshold = theoretical_qber * 1.5
+        
+        if estimated_error_rate > threshold:
+            self.security_metrics['eavesdropping_detected'] += 1
+            return True
+        
+        return False
+    
+    async def continuous_key_refresh(self, alice_id: str, bob_id: str,
+                                   refresh_interval: int = 3600):
+        """
+        Continuously refresh QKD keys at regular intervals.
+        
+        Args:
+            alice_id: Sender identifier
+            bob_id: Receiver identifier
+            refresh_interval: Refresh interval in seconds
+        """
+        print(f"Starting continuous key refresh every {refresh_interval} seconds")
+        
+        while True:
+            try:
+                key = await self.bb84_key_exchange(alice_id, bob_id, num_qubits=2000)
+                if key:
+                    key_id = f"{alice_id}_{bob_id}_{datetime.now().timestamp()}"
+                    self.final_keys[key_id] = key
+                    print(f"Refreshed key: {key_id} ({len(key)} bytes)")
+                
+                await asyncio.sleep(refresh_interval)
+                
+            except Exception as e:
+                print(f"Key refresh failed: {e}")
+                await asyncio.sleep(60)  # Wait before retry
+    
+    def get_security_metrics(self) -> Dict[str, Any]:
+        """Get security metrics."""
+        avg_error_rate = np.mean(list(self.error_rates.values())) if self.error_rates else 0.0
+        avg_key_rate = np.mean(list(self.key_rates.values())) if self.key_rates else 0.0
+        
+        return {
+            **self.security_metrics,
+            'average_error_rate': avg_error_rate,
+            'average_key_rate_bps': avg_key_rate,
+            'active_keys': len(self.final_keys),
+            'sessions_completed': len(self.error_rates)
+        }
+    
+    def save_keys(self, filepath: str):
+        """Save QKD keys to encrypted file."""
+        import json
+        from cryptography.fernet import Fernet
+        
+        # Generate encryption key
+        encryption_key = Fernet.generate_key()
+        fernet = Fernet(encryption_key)
+        
+        # Prepare data
+        keys_data = {
+            'final_keys': {
+                k: base64.b64encode(v).decode('utf-8') 
+                for k, v in self.final_keys.items()
+            },
+            'metadata': {
+                'protocol': self.protocol.value,
+                'key_length': self.key_length,
+                'security_metrics': self.security_metrics
+            }
+        }
+        
+        # Encrypt and save
+        encrypted_data = fernet.encrypt(json.dumps(keys_data).encode())
+        
+        with open(filepath, 'wb') as f:
+            f.write(encryption_key + b'||' + encrypted_data)
+        
+        print(f"Saved {len(self.final_keys)} keys to {filepath}")
+    
+    def load_keys(self, filepath: str):
+        """Load QKD keys from encrypted file."""
+        import json
+        from cryptography.fernet import Fernet
+        
+        try:
+            with open(filepath, 'rb') as f:
+                data = f.read()
+            
+            encryption_key, encrypted_data = data.split(b'||', 1)
+            fernet = Fernet(encryption_key)
+            
+            decrypted_data = fernet.decrypt(encrypted_data)
+            keys_data = json.loads(decrypted_data.decode())
+            
+            # Load keys
+            self.final_keys = {
+                k: base64.b64decode(v.encode('utf-8'))
+                for k, v in keys_data['final_keys'].items()
+            }
+            
+            # Load metadata
+            metadata = keys_data['metadata']
+            self.protocol = QKDProtocol(metadata['protocol'])
+            self.key_length = metadata['key_length']
+            self.security_metrics = metadata['security_metrics']
+            
+            print(f"Loaded {len(self.final_keys)} keys from {filepath}")
+            
+        except Exception as e:
+            print(f"Failed to load keys: {e}")
+
+class E91Engine(QKDEngine):
+    """
+    E91 protocol implementation using quantum entanglement.
+    """
+    
+    def __init__(self, config: Dict[str, Any]):
+        super().__init__(config)
+        self.protocol = QKDProtocol.E91
+        self.entangled_pairs: Dict[str, Tuple[Qubit, Qubit]] = {}
+        
+    def create_entangled_pair(self) -> Tuple[Qubit, Qubit]:
+        """
+        Create an entangled pair (Bell state).
+        
+        Returns:
+            Tuple of two entangled qubits
+        """
+        # Create |Φ+> = (|00> + |11>)/√2
+        qubit1 = Qubit(
+            state=QuantumState.ZERO,  # Will be entangled
+            basis=0,
+            id=f"entangled_{datetime.now().timestamp()}_1",
+            timestamp=datetime.now()
+        )
+        
+        qubit2 = Qubit(
+            state=QuantumState.ZERO,  # Will be entangled
+            basis=0,
+            id=f"entangled_{datetime.now().timestamp()}_2",
+            timestamp=datetime.now()
+        )
+        
+        pair_id = f"pair_{qubit1.id}_{qubit2.id}"
+        self.entangled_pairs[pair_id] = (qubit1, qubit2)
+        
+        return qubit1, qubit2
+    
+    async def e91_key_exchange(self, alice_id: str, bob_id: str,
+                              num_pairs: int = 500) -> Optional[bytes]:
+        """
+        Perform E91 key exchange using entangled pairs.
+        
+        Args:
+            alice_id: Party A identifier
+            bob_id: Party B identifier
+            num_pairs: Number of entangled pairs
+            
+        Returns:
+            Shared secret key
+        """
+        session_id = f"e91_{alice_id}_{bob_id}_{datetime.now().timestamp()}"
+        
+        try:
+            # Step 1: Create entangled pairs
+            print(f"[{session_id}] Step 1: Creating {num_pairs} entangled pairs...")
+            alice_qubits = []
+            bob_qubits = []
+            
+            for i in range(num_pairs):
+                qubit1, qubit2 = self.create_entangled_pair()
+                alice_qubits.append(qubit1)
+                bob_qubits.append(qubit2)
+            
+            # Step 2: Distribute qubits (simulated)
+            print(f"[{session_id}] Step 2: Distributing entangled pairs...")
+            transmitted_alice = self.simulate_transmission(alice_qubits)
+            transmitted_bob = self.simulate_transmission(bob_qubits)
+            
+            # Ensure we have matching pairs
+            min_pairs = min(len(transmitted_alice), len(transmitted_bob))
+            transmitted_alice = transmitted_alice[:min_pairs]
+            transmitted_bob = transmitted_bob[:min_pairs]
+            
+            print(f"[{session_id}] Successfully distributed {min_pairs} pairs")
+            
+            # Step 3: Random measurement basis selection
+            print(f"[{session_id}] Step 3: Random basis selection...")
+            # Three possible bases: 0°, 45°, 90°
+            alice_bases = [secrets.randbelow(3) for _ in range(min_pairs)]
+            bob_bases = [secrets.randbelow(3) for _ in range(min_pairs)]
+            
+            # Step 4: Measure qubits
+            print(f"[{session_id}] Step 4: Measuring qubits...")
+            alice_results = self.measure_entangled(transmitted_alice, alice_bases)
+            bob_results = self.measure_entangled(transmitted_bob, bob_bases)
+            
+            # Step 5: Basis comparison and sifting
+            print(f"[{session_id}] Step 5: Basis comparison...")
+            sifted_bits_alice = []
+            sifted_bits_bob = []
+            
+            for i in range(min_pairs):
+                # Keep results where bases are different (for CHSH inequality test)
+                if alice_bases[i] != bob_bases[i]:
+                    sifted_bits_alice.append(alice_results[i])
+                    sifted_bits_bob.append(bob_results[i])
+            
+            print(f"[{session_id}] Sifted {len(sifted_bits_alice)} bits")
+            
+            if len(sifted_bits_alice) < self.key_length:
+                print(f"[{session_id}] Insufficient sifted bits")
+                return None
+            
+            # Step 6: CHSH inequality test for eavesdropping detection
+            print(f"[{session_id}] Step 6: CHSH inequality test...")
+            chsh_value = self.calculate_chsh(alice_results, bob_results, 
+                                           alice_bases, bob_bases)
+            
+            print(f"[{session_id}] CHSH value: {chsh_value:.3f}")
+            
+            # Classical bound: |S| ≤ 2, Quantum bound: |S| ≤ 2√2 ≈ 2.828
+            if chsh_value < 2.4:  # Conservative threshold
+                print(f"[{session_id}] CHSH violation too low, possible eavesdropping")
+                self.security_metrics['eavesdropping_detected'] += 1
+                return None
+            
+            # Step 7: Error correction and privacy amplification
+            print(f"[{session_id}] Step 7: Error correction...")
+            error_rate = self.estimate_error_rate(sifted_bits_alice, sifted_bits_bob)
+            corrected_key = self.cascade_error_correction(sifted_bits_alice, 
+                                                        sifted_bits_bob, 
+                                                        error_rate)
+            
+            print(f"[{session_id}] Step 8: Privacy amplification...")
+            final_key = self.privacy_amplification(corrected_key, error_rate)
+            
+            # Store key
+            key_id = f"e91_key_{session_id}"
+            self.final_keys[key_id] = final_key
+            
+            # Update metrics
+            self.security_metrics['keys_generated'] += 1
+            
+            print(f"[{session_id}] E91 key exchange successful!")
+            print(f"[{session_id}] Generated {len(final_key)} byte key")
+            
+            return final_key
+            
+        except Exception as e:
+            print(f"[{session_id}] E91 key exchange failed: {e}")
+            return None
+    
+    def measure_entangled(self, qubits: List[Qubit], 
+                         bases: List[int]) -> List[int]:
+        """
+        Measure entangled qubits in specified bases.
+        
+        Args:
+            qubits: List of entangled qubits
+            bases: Measurement bases (0, 1, 2 for 0°, 45°, 90°)
+            
+        Returns:
+            Measurement results (0 or 1)
+        """
+        results = []
+        
+        for qubit, basis in zip(qubits, bases):
+            # For entangled pairs, measurement is probabilistic
+            # but correlated with the other qubit in the pair
+            if basis == 0:  # 0° basis
+                # Higher probability for |0> if other was |0>
+                prob_0 = 0.85  # Adjust based on entanglement quality
+            elif basis == 1:  # 45° basis
+                prob_0 = 0.5  # Equal probability
+            else:  # 90° basis
+                prob_0 = 0.15  # Lower probability for |0>
+            
+            result = 0 if secrets.random() < prob_0 else 1
+            results.append(result)
+        
+        return results
+    
+    def calculate_chsh(self, alice_results: List[int], bob_results: List[int],
+                      alice_bases: List[int], bob_bases: List[int]) -> float:
+        """
+        Calculate CHSH inequality value for eavesdropping detection.
+        
+        Args:
+            alice_results: Alice's measurement results
+            bob_results: Bob's measurement results
+            alice_bases: Alice's measurement bases
+            bob_bases: Bob's measurement bases
+            
+        Returns:
+            CHSH S-value
+        """
+        # Define correlation combinations
+        correlations = []
+        
+        for a_result, b_result, a_basis, b_basis in zip(alice_results, bob_results,
+                                                       alice_bases, bob_bases):
+            # Calculate correlation based on basis combination
+            if (a_basis, b_basis) in [(0, 1), (1, 0), (1, 2), (2, 1)]:
+                # These combinations contribute to CHSH
+                correlation = 1 if a_result == b_result else -1
+                correlations.append(correlation)
+        
+        if not correlations:
+            return 0.0
+        
+        # Calculate CHSH S-value
+        s_value = abs(np.mean(correlations)) * 4  # Multiply by 4 for CHSH
+        
+        return s_value
+    
+    def estimate_error_rate(self, bits1: List[int], bits2: List[int]) -> float:
+        """
+        Estimate error rate between two bit strings.
+        
+        Args:
+            bits1: First bit string
+            bits2: Second bit string
+            
+        Returns:
+            Error rate (0-1)
+        """
+        if len(bits1) != len(bits2):
+            return 1.0
+        
+        errors = sum(b1 != b2 for b1, b2 in zip(bits1, bits2))
+        return errors / len(bits1)
+
+def binary_entropy(p: float) -> float:
+    """
+    Calculate binary entropy H(p) = -p log2(p) - (1-p) log2(1-p).
+    
+    Args:
+        p: Probability (0-1)
+        
+    Returns:
+        Binary entropy
+    """
+    if p == 0 or p == 1:
+        return 0.0
+    return -p * np.log2(p) - (1 - p) * np.log2(1 - p)
+
+class ClassicalChannel:
+    """
+    Simulated classical communication channel for QKD.
+    """
+    
+    def __init__(self):
+        self.messages = []
+        self.authenticated = True
+        
+    def send(self, sender: str, receiver: str, message: Any):
+        """Send message over classical channel."""
+        msg_id = f"{sender}_{receiver}_{datetime.now().timestamp()}"
+        self.messages.append({
+            'id': msg_id,
+            'sender': sender,
+            'receiver': receiver,
+            'message': message,
+            'timestamp': datetime.now(),
+            'authenticated': self.authenticated
+        })
+        
+        # Simulate transmission delay
+        delay = 0.001  # 1ms delay
+        return asyncio.sleep(delay)
+    
+    def receive(self, receiver: str, sender: Optional[str] = None) -> List[Any]:
+        """Receive messages from classical channel."""
+        if sender:
+            received = [m for m in self.messages 
+                       if m['receiver'] == receiver and m['sender'] == sender]
+        else:
+            received = [m for m in self.messages 
+                       if m['receiver'] == receiver]
+        
+        return [m['message'] for m in received]
+    
+    def authenticate(self, sender: str, receiver: str, 
+                    message: Any, signature: bytes) -> bool:
+        """Authenticate message using digital signature."""
+        # Simulated authentication (always returns True in simulation)
+        return self.authenticated
+```
+
+src/qb_ai_cyber/core/neural_engine/snn_engine.py
+
+```python
+"""
+Spiking Neural Network (SNN) Engine
+Biologically-inspired neural networks for real-time threat detection.
+"""
+
+import numpy as np
+from typing import Dict, List, Optional, Tuple, Any
+from dataclasses import dataclass, field
+from datetime import datetime
+import asyncio
+from collections import deque
+import pickle
+from pathlib import Path
+import hashlib
+
+@dataclass
+class Spike:
+    """Represents a neural spike event."""
+    neuron_id: int
+    timestamp: float  # in milliseconds
+    amplitude: float
+    source: str
+    metadata: Dict[str, Any] = field(default_factory=dict)
+
+@dataclass
+class Neuron:
+    """Leaky Integrate-and-Fire (LIF) neuron model."""
+    neuron_id: int
+    layer: str
+    membrane_potential: float = -65.0  # mV
+    threshold: float = -50.0  # mV
+    reset_potential: float = -65.0  # mV
+    tau_mem: float = 20.0  # ms (membrane time constant)
+    last_spike_time: float = -1.0
+    refractory_period: float = 2.0  # ms
+    adaptation: float = 0.0
+    learning_rate: float = 0.01
+    
+    # STDP parameters
+    stdp_trace: float = 0.0
+    tau_stdp: float = 20.0
+    
+    def update(self, current_input: float, dt: float = 1.0) -> Optional[Spike]:
+        """
+        Update neuron state and check for spike.
+        
+        Args:
+            current_input: Input current
+            dt: Time step in ms
+            
+        Returns:
+            Spike if fired, None otherwise
+        """
+        # Check refractory period
+        time_since_last_spike = self.last_spike_time if self.last_spike_time > 0 else 1000
+        if time_since_last_spike < self.refractory_period:
+            return None
+        
+        # Update membrane potential (LIF equation)
+        dv = (-self.membrane_potential + self.reset_potential + current_input) / self.tau_mem
+        self.membrane_potential += dv * dt
+        
+        # Add adaptation
+        self.membrane_potential -= self.adaptation
+        
+        # Check for spike
+        if self.membrane_potential >= self.threshold:
+            # Generate spike
+            spike = Spike(
+                neuron_id=self.neuron_id,
+                timestamp=datetime.now().timestamp() * 1000,  # Convert to ms
+                amplitude=1.0,
+                source=f"neuron_{self.neuron_id}",
+                metadata={
+                    'membrane_potential': self.membrane_potential,
+                    'layer': self.layer
+                }
+            )
+            
+            # Reset membrane potential
+            self.membrane_potential = self.reset_potential
+            self.last_spike_time = spike.timestamp
+            
+            # Update STDP trace
+            self.stdp_trace = 1.0
+            
+            return spike
+        
+        # Decay STDP trace
+        self.stdp_trace *= np.exp(-dt / self.tau_stdp)
+        
+        return None
+
+@dataclass
+class Synapse:
+    """Synaptic connection between neurons."""
+    pre_neuron_id: int
+    post_neuron_id: int
+    weight: float
+    delay: float  # ms
+    plasticity_type: str  # 'stdp', 'hebbian', 'static'
+    learning_rate: float = 0.001
+    
+    # STDP parameters
+    A_plus: float = 0.01  # Potentiation rate
+    A_minus: float = 0.012  # Depression rate
+    tau_plus: float = 20.0  # Potentiation time constant
+    tau_minus: float = 20.0  # Depression time constant
+    
+    def update_stdp(self, pre_trace: float, post_trace: float, dt: float = 1.0):
+        """
+        Update weight using Spike-Timing-Dependent Plasticity.
+        
+        Args:
+            pre_trace: Pre-synaptic trace
+            post_trace: Post-synaptic trace
+            dt: Time step
+        """
+        if self.plasticity_type != 'stdp':
+            return
+        
+        # STDP rule: Δw = A_plus * exp(-Δt/τ_plus) for Δt > 0 (LTP)
+        #              A_minus * exp(Δt/τ_minus) for Δt < 0 (LTD)
+        
+        # Using traces approximation
+        delta_w = self.A_plus * pre_trace - self.A_minus * post_trace
+        self.weight += delta_w * self.learning_rate * dt
+        
+        # Clamp weight
+        self.weight = max(-1.0, min(1.0, self.weight))
+
+class SNNLayer:
+    """Layer of spiking neurons."""
+    
+    def __init__(self, layer_id: str, num_neurons: int, neuron_type: str = "lif"):
+        self.layer_id = layer_id
+        self.num_neurons = num_neurons
+        self.neuron_type = neuron_type
+        self.neurons: Dict[int, Neuron] = {}
+        self.spike_history = deque(maxlen=10000)
+        
+        # Initialize neurons
+        for i in range(num_neurons):
+            self.neurons[i] = Neuron(
+                neuron_id=i,
+                layer=layer_id,
+                threshold=-50.0 + np.random.randn() * 5.0,  # Add some variance
+                tau_mem=20.0 + np.random.randn() * 2.0
+            )
+    
+    def process_input(self, input_currents: np.ndarray, dt: float = 1.0) -> List[Spike]:
+        """
+        Process input currents through layer.
+        
+        Args:
+            input_currents: Array of input currents (one per neuron)
+            dt: Time step in ms
+            
+        Returns:
+            List of generated spikes
+        """
+        spikes = []
+        
+        for i, neuron in self.neurons.items():
+            if i < len(input_currents):
+                current = input_currents[i]
+                spike = neuron.update(current, dt)
+                if spike:
+                    spikes.append(spike)
+                    self.spike_history.append(spike)
+        
+        return spikes
+    
+    def get_spike_rate(self, window_ms: float = 1000.0) -> float:
+        """
+        Calculate average spike rate in window.
+        
+        Args:
+            window_ms: Time window in ms
+            
+        Returns:
+            Average spike rate in Hz
+        """
+        if not self.spike_history:
+            return 0.0
+        
+        current_time = datetime.now().timestamp() * 1000
+        recent_spikes = [s for s in self.spike_history 
+                        if current_time - s.timestamp <= window_ms]
+        
+        if not recent_spikes:
+            return 0.0
+        
+        time_span = window_ms / 1000.0  # Convert to seconds
+        return len(recent_spikes) / (self.num_neurons * time_span)
+    
+    def get_activity_pattern(self, window_ms: float = 100.0) -> np.ndarray:
+        """
+        Get recent activity pattern.
+        
+        Args:
+            window_ms: Time window in ms
+            
+        Returns:
+            Binary array indicating which neurons fired
+        """
+        pattern = np.zeros(self.num_neurons, dtype=bool)
+        current_time = datetime.now().timestamp() * 1000
+        
+        for spike in self.spike_history:
+            if current_time - spike.timestamp <= window_ms:
+                pattern[spike.neuron_id] = True
+        
+        return pattern
+
+class SpikingNeuralNetwork:
+    """
+    Spiking Neural Network for threat detection.
+    """
+    
+    def __init__(self, config: Dict[str, Any]):
+        self.config = config
+        self.layers: Dict[str, SNNLayer] = {}
+        self.synapses: List[Synapse] = []
+        self.spike_queue = []
+        self.learning_enabled = config.get('learning_enabled', True)
+        
+        # Network architecture
+        self._build_network()
+        
+        # Statistics
+        self.stats = {
+            'total_spikes': 0,
+            'layer_activity': {},
+            'learning_updates': 0,
+            'inference_time': 0.0
+        }
+    
+    def _build_network(self):
+        """Build SNN architecture based on config."""
+        architecture = self.config.get('architecture', {
+            'input': 100,
+            'hidden': [64, 32],
+            'output': 10
+        })
+        
+        # Create input layer
+        input_size = architecture['input']
+        self.layers['input'] = SNNLayer('input', input_size)
+        
+        # Create hidden layers
+        hidden_sizes = architecture['hidden']
+        for i, size in enumerate(hidden_sizes):
+            layer_id = f'hidden_{i}'
+            self.layers[layer_id] = SNNLayer(layer_id, size)
+        
+        # Create output layer
+        output_size = architecture['output']
+        self.layers['output'] = SNNLayer('output', output_size)
+        
+        # Create synaptic connections
+        self._create_synapses()
+        
+        print(f"Built SNN with {len(self.layers)} layers")
+        print(f"Total neurons: {sum(l.num_neurons for l in self.layers.values())}")
+    
+    def _create_synapses(self):
+        """Create synaptic connections between layers."""
+        layer_names = list(self.layers.keys())
+        
+        for i in range(len(layer_names) - 1):
+            pre_layer = self.layers[layer_names[i]]
+            post_layer = self.layers[layer_names[i + 1]]
+            
+            # Create random connections
+            connection_prob = self.config.get('connection_probability', 0.3)
+            
+            for pre_id in range(pre_layer.num_neurons):
+                for post_id in range(post_layer.num_neurons):
+                    if np.random.rand() < connection_prob:
+                        synapse = Synapse(
+                            pre_neuron_id=pre_id,
+                            post_neuron_id=post_id,
+                            weight=np.random.randn() * 0.1,  # Small initial weights
+                            delay=np.random.uniform(0.1, 5.0),  # ms
+                            plasticity_type='stdp' if self.learning_enabled else 'static'
+                        )
+                        self.synapses.append(synapse)
+        
+        print(f"Created {len(self.synapses)} synapses")
+    
+    def encode_threat_features(self, threat_data: Dict[str, Any]) -> np.ndarray:
+        """
+        Encode threat features into spike patterns.
+        
+        Args:
+            threat_data: Threat information
+            
+        Returns:
+            Input currents for input layer
+        """
+        input_size = self.layers['input'].num_neurons
+        encoded = np.zeros(input_size)
+        
+        # Extract features from threat data
+        features = []
+        
+        # Network features
+        if 'network' in threat_data:
+            net = threat_data['network']
+            features.extend([
+                net.get('packet_size', 0) / 1500,  # Normalized
+                net.get('protocol', 0) / 255,
+                net.get('source_port', 0) / 65535,
+                net.get('dest_port', 0) / 65535,
+                net.get('ttl', 0) / 255
+            ])
+        
+        # Behavioral features
+        if 'behavior' in threat_data:
+            behavior = threat_data['behavior']
+            features.extend([
+                behavior.get('event_count', 0) / 1000,
+                behavior.get('unique_sources', 0) / 100,
+                behavior.get('failed_attempts', 0) / 10
+            ])
+        
+        # File features
+        if 'file' in threat_data:
+            file_data = threat_data['file']
+            features.extend([
+                file_data.get('entropy', 0) / 8,
+                file_data.get('size', 0) / 1e6,  # MB
+                len(file_data.get('sections', [])) / 20
+            ])
+        
+        # Pad or truncate to input size
+        if len(features) < input_size:
+            features.extend([0] * (input_size - len(features)))
+        else:
+            features = features[:input_size]
+        
+        # Convert to input currents (higher feature value = higher current)
+        encoded[:len(features)] = np.array(features) * 10.0  # Scale
+        
+        return encoded
+    
+    async def process_threat(self, threat_data: Dict[str, Any], 
+                           simulation_time: float = 100.0) -> Dict[str, Any]:
+        """
+        Process threat through SNN.
+        
+        Args:
+            threat_data: Threat information
+            simulation_time: Simulation duration in ms
+            
+        Returns:
+            SNN processing results
+        """
+        start_time = datetime.now()
+        
+        # Encode threat features
+        input_currents = self.encode_threat_features(threat_data)
+        
+        # Run simulation
+        dt = 1.0  # ms time step
+        spikes_per_layer = {layer_id: 0 for layer_id in self.layers}
+        output_spikes = []
+        
+        for t in np.arange(0, simulation_time, dt):
+            # Process input layer
+            input_spikes = self.layers['input'].process_input(input_currents, dt)
+            spikes_per_layer['input'] += len(input_spikes)
+            
+            # Propagate spikes through network
+            all_spikes = input_spikes.copy()
+            
+            # Process through hidden and output layers
+            for layer_id in ['hidden_0', 'hidden_1', 'output']:
+                if layer_id not in self.layers:
+                    continue
+                
+                layer = self.layers[layer_id]
+                
+                # Calculate input currents for this layer
+                layer_inputs = np.zeros(layer.num_neurons)
+                
+                for spike in all_spikes:
+                    # Find synapses from spiking neuron to this layer
+                    for synapse in self.synapses:
+                        if (synapse.pre_neuron_id == spike.neuron_id and 
+                            self._get_neuron_layer(synapse.pre_neuron_id) != layer_id):
+                            
+                            # Find target neuron in this layer
+                            if synapse.post_neuron_id < layer.num_neurons:
+                                # Apply synaptic delay
+                                if t >= spike.timestamp + synapse.delay:
+                                    layer_inputs[synapse.post_neuron_id] += synapse.weight
+                
+                # Process layer
+                layer_spikes = layer.process_input(layer_inputs, dt)
+                spikes_per_layer[layer_id] += len(layer_spikes)
+                all_spikes.extend(layer_spikes)
+                
+                # Store output spikes
+                if layer_id == 'output':
+                    output_spikes.extend(layer_spikes)
+            
+            # Update synaptic weights (STDP)
+            if self.learning_enabled:
+                self._update_synapses(dt)
+            
+            # Small delay to prevent CPU hogging
+            await asyncio.sleep(0.001)
+        
+        # Analyze output
+        threat_level = self._analyze_output(output_spikes, simulation_time)
+        
+        # Update statistics
+        processing_time = (datetime.now() - start_time).total_seconds()
+        self.stats['total_spikes'] += sum(spikes_per_layer.values())
+        self.stats['inference_time'] = processing_time
+        
+        # Update layer activity
+        for layer_id, spike_count in spikes_per_layer.items():
+            if layer_id not in self.stats['layer_activity']:
+                self.stats['layer_activity'][layer_id] = []
+            self.stats['layer_activity'][layer_id].append(spike_count)
+        
+        return {
+            'threat_level': threat_level,
+            'output_spikes': len(output_spikes),
+            'spikes_per_layer': spikes_per_layer,
+            'processing_time': processing_time,
+            'network_activity': self._calculate_network_activity()
+        }
+    
+    def _get_neuron_layer(self, neuron_id: int) -> Optional[str]:
+        """Find which layer a neuron belongs to."""
+        for layer_id, layer in self.layers.items():
+            if neuron_id < layer.num_neurons:
+                return layer_id
+        
+        return None
+    
+    def _update_synapses(self, dt: float):
+        """Update synaptic weights using STDP."""
+        for synapse in self.synapses:
+            # Get pre- and post-synaptic neurons
+            pre_layer = self._get_neuron_layer(synapse.pre_neuron_id)
+            post_layer = self._get_neuron_layer(synapse.post_neuron_id)
+            
+            if not (pre_layer and post_layer):
+                continue
+            
+            pre_neuron = self.layers[pre_layer].neurons.get(synapse.pre_neuron_id)
+            post_neuron = self.layers[post_layer].neurons.get(synapse.post_neuron_id)
+            
+            if not (pre_neuron and post_neuron):
+                continue
+            
+            # Update using STDP traces
+            synapse.update_stdp(pre_neuron.stdp_trace, post_neuron.stdp_trace, dt)
+        
+        self.stats['learning_updates'] += 1
+    
+    def _analyze_output(self, output_spikes: List[Spike], 
+                       simulation_time: float) -> float:
+        """
+        Analyze output spikes to determine threat level.
+        
+        Args:
+            output_spikes: List of output layer spikes
+            simulation_time: Simulation duration in ms
+            
+        Returns:
+            Threat level (0-1)
+        """
+        if not output_spikes:
+            return 0.0
+        
+        # Calculate spike rate
+        spike_rate = len(output_spikes) / (simulation_time / 1000)  # Hz
+        
+        # Normalize to 0-1 range
+        max_rate = 100.0  # Maximum expected spike rate
+        threat_level = min(1.0, spike_rate / max_rate)
+        
+        # Consider spike timing patterns
+        if len(output_spikes) > 1:
+            # Calculate interspike intervals
+            timestamps = sorted([s.timestamp for s in output_spikes])
+            intervals = np.diff(timestamps)
+            
+            # Burst detection (closely spaced spikes)
+            burst_threshold = 10.0  # ms
+            burst_count = sum(1 for interval in intervals if interval < burst_threshold)
+            
+            if burst_count > 0:
+                # Bursts indicate higher threat
+                threat_level = min(1.0, threat_level * 1.5)
+        
+        return threat_level
+    
+    def _calculate_network_activity(self) -> Dict[str, float]:
+        """Calculate current network activity levels."""
+        activity = {}
+        
+        for layer_id, layer in self.layers.items():
+            spike_rate = layer.get_spike_rate(window_ms=1000.0)
+            activity[layer_id] = spike_rate
+        
+        return activity
+    
+    def train_on_threats(self, training_data: List[Tuple[Dict[str, Any], float]]):
+        """
+        Train SNN on labeled threat data.
+        
+        Args:
+            training_data: List of (threat_data, label) pairs
+        """
+        print(f"Training SNN on {len(training_data)} examples")
+        
+        for threat_data, label in training_data:
+            # Run simulation
+            result = asyncio.run(self.process_threat(threat_data))
+            
+            # Calculate error
+            predicted = result['threat_level']
+            error = label - predicted
+            
+            # Adjust learning based on error
+            if abs(error) > 0.2:
+                # Increase learning rate for large errors
+                self._adjust_learning_rate(error)
+    
+    def _adjust_learning_rate(self, error: float):
+        """Adjust learning rate based on error."""
+        for synapse in self.synapses:
+            if synapse.plasticity_type == 'stdp':
+                # Increase learning rate for large errors
+                adjustment = 1.0 + abs(error) * 0.1
+                synapse.learning_rate = min(0.1, synapse.learning_rate * adjustment)
+    
+    def save_model(self, filepath: str):
+        """Save SNN model to file."""
+        model_data = {
+            'layers': {},
+            'synapses': [],
+            'config': self.config,
+            'stats': self.stats
+        }
+        
+        # Save layer states
+        for layer_id, layer in self.layers.items():
+            model_data['layers'][layer_id] = {
+                'neurons': {nid: neuron.__dict__ for nid, neuron in layer.neurons.items()},
+                'num_neurons': layer.num_neurons
+            }
+        
+        # Save synapses
+        model_data['synapses'] = [synapse.__dict__ for synapse in self.synapses]
+        
+        with open(filepath, 'wb') as f:
+            pickle.dump(model_data, f)
+        
+        print(f"Saved SNN model to {filepath}")
+    
+    def load_model(self, filepath: str):
+        """Load SNN model from file."""
+        try:
+            with open(filepath, 'rb') as f:
+                model_data = pickle.load(f)
+            
+            # Load configuration
+            self.config = model_data['config']
+            self.stats = model_data['stats']
+            
+            # Rebuild network
+            self._build_network()
+            
+            # Load neuron states
+            for layer_id, layer_data in model_data['layers'].items():
+                if layer_id in self.layers:
+                    for nid, neuron_state in layer_data['neurons'].items():
+                        if int(nid) in self.layers[layer_id].neurons:
+                            # Update neuron state
+                            neuron = self.layers[layer_id].neurons[int(nid)]
+                            for key, value in neuron_state.items():
+                                if hasattr(neuron, key):
+                                    setattr(neuron, key, value)
+            
+            # Load synapses
+            self.synapses = []
+            for synapse_data in model_data['synapses']:
+                synapse = Synapse(**synapse_data)
+                self.synapses.append(synapse)
+            
+            print(f"Loaded SNN model from {filepath}")
+            
+        except Exception as e:
+            print(f"Failed to load SNN model: {e}")
+
+class ThreatSNNDetector:
+    """
+    SNN-based threat detector using biologically-inspired networks.
+    """
+    
+    def __init__(self, config: Dict[str, Any]):
+        self.config = config
+        self.snn = SpikingNeuralNetwork(config.get('snn_config', {}))
+        self.threat_patterns = {}
+        self.detection_history = deque(maxlen=1000)
+        
+        # Load pre-trained patterns if available
+        self._load_threat_patterns()
+    
+    def _load_threat_patterns(self):
+        """Load known threat patterns."""
+        patterns_file = Path("data/threat_patterns.pkl")
+        if patterns_file.exists():
+            try:
+                with open(patterns_file, 'rb') as f:
+                    self.threat_patterns = pickle.load(f)
+                print(f"Loaded {len(self.threat_patterns)} threat patterns")
+            except Exception as e:
+                print(f"Failed to load threat patterns: {e}")
+    
+    async def detect_threat(self, network_data: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Detect threats using SNN.
+        
+        Args:
+            network_data: Network traffic or system data
+            
+        Returns:
+            Threat detection results
+        """
+        start_time = datetime.now()
+        
+        # Process through SNN
+        snn_result = await self.snn.process_threat(network_data)
+        
+        # Compare with known patterns
+        pattern_matches = self._compare_with_patterns(network_data)
+        
+        # Calculate threat score
+        snn_score = snn_result['threat_level']
+        pattern_score = self._calculate_pattern_score(pattern_matches)
+        
+        # Combined threat score
+        threat_score = 0.7 * snn_score + 0.3 * pattern_score
+        
+        # Determine threat level
+        if threat_score > 0.8:
+            threat_level = 'critical'
+        elif threat_score > 0.6:
+            threat_level = 'high'
+        elif threat_score > 0.4:
+            threat_level = 'medium'
+        elif threat_score > 0.2:
+            threat_level = 'low'
+        else:
+            threat_level = 'none'
+        
+        # Record detection
+        detection = {
+            'timestamp': datetime.now(),
+            'threat_score': threat_score,
+            'threat_level': threat_level,
+            'snn_score': snn_score,
+            'pattern_score': pattern_score,
+            'pattern_matches': pattern_matches,
+            'processing_time': (datetime.now() - start_time).total_seconds()
+        }
+        
+        self.detection_history.append(detection)
+        
+        # Learn from detection if threat level is high
+        if threat_level in ['high', 'critical']:
+            await self._learn_from_threat(network_data, threat_score)
+        
+        return detection
+    
+    def _compare_with_patterns(self, network_data: Dict[str, Any]) -> List[Dict[str, Any]]:
+        """Compare data with known threat patterns."""
+        matches = []
+        
+        for pattern_id, pattern in self.threat_patterns.items():
+            similarity = self._calculate_similarity(network_data, pattern)
+            
+            if similarity > 0.7:  # Threshold for match
+                matches.append({
+                    'pattern_id': pattern_id,
+                    'similarity': similarity,
+                    'pattern_type': pattern.get('type', 'unknown')
+                })
+        
+        return matches
+    
+    def _calculate_similarity(self, data1: Dict[str, Any], 
+                            data2: Dict[str, Any]) -> float:
+        """Calculate similarity between two data dictionaries."""
+        # Simple feature-based similarity
+        common_keys = set(data1.keys()) & set(data2.keys())
+        
+        if not common_keys:
+            return 0.0
+        
+        similarities = []
+        for key in common_keys:
+            val1 = data1[key]
+            val2 = data2[key]
+            
+            if isinstance(val1, (int, float)) and isinstance(val2, (int, float)):
+                # Numerical similarity
+                if max(abs(val1), abs(val2)) > 0:
+                    similarity = 1 - abs(val1 - val2) / max(abs(val1), abs(val2))
+                    similarities.append(max(0, similarity))
+            elif isinstance(val1, str) and isinstance(val2, str):
+                # String similarity (simple)
+                if val1 == val2:
+                    similarities.append(1.0)
+                else:
+                    # Partial match
+                    if val1 in val2 or val2 in val1:
+                        similarities.append(0.5)
+                    else:
+                        similarities.append(0.0)
+        
+        return np.mean(similarities) if similarities else 0.0
+    
+    def _calculate_pattern_score(self, pattern_matches: List[Dict[str, Any]]) -> float:
+        """Calculate threat score from pattern matches."""
+        if not pattern_matches:
+            return 0.0
+        
+        # Weight by similarity and pattern type
+        scores = []
+        for match in pattern_matches:
+            base_score = match['similarity']
+            
+            # Adjust based on pattern type
+            pattern_type = match['pattern_type']
+            if pattern_type == 'malware':
+                base_score *= 1.2
+            elif pattern_type == 'exploit':
+                base_score *= 1.3
+            elif pattern_type == 'ddos':
+                base_score *= 1.1
+            
+            scores.append(min(1.0, base_score))
+        
+        return max(scores) if scores else 0.0
+    
+    async def _learn_from_threat(self, threat_data:
+```
